@@ -130,7 +130,7 @@ export const SubscribedStatus = ({
 }: StatusProps) => (
   <div className="space-y-4">
     {/* 구독 상태 헤더 - 모든 기기에서 일관된 레이아웃 */}
-    <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 p-4 bg-gradient-to-r from-primary/5 to-primary/10 rounded-xl border border-primary/20">
+    <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 p-4 bg-gradient-to-r from-primary/5 to-primary/10 rounded-xl border border-primary/20 cursor-pointer hover:border-primary btn-hover">
       <div className="flex items-center gap-3 w-full lg:w-auto lg:flex-1">
         <div className="relative p-2 bg-primary/10 rounded-full">
           <Activity className="h-4 w-4 text-primary" />
@@ -173,7 +173,7 @@ export const SubscribedStatus = ({
     </div>
 
     {/* 알림 수신 범위 안내 - 모든 기기에서 일관된 여백과 크기 */}
-    <div className="p-4 bg-muted/30 rounded-lg border">
+    <div className="p-4 bg-muted/30 rounded-lg border cursor-pointer hover:border-primary btn-hover">
       <div className="flex items-start gap-3">
         <div className="p-1.5 bg-primary/10 rounded-full mt-0.5 shrink-0">
           <Bell className="h-4 w-4 text-primary" />

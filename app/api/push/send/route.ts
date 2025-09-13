@@ -191,12 +191,12 @@ export async function POST(request: NextRequest) {
     const notificationIcon =
       icon ||
       (settings?.notificationIcon
-        ? `/uploads/${settings.notificationIcon}`
+        ? settings.notificationIcon
         : "/icon-192x192.png");
     const notificationBadge =
       badge ||
       (settings?.notificationBadge
-        ? `/uploads/${settings.notificationBadge}`
+        ? settings.notificationBadge
         : "/icon-192x192.png");
 
     // VAPID 키 초기화

@@ -292,79 +292,72 @@ export default function TermsManagementPage() {
                             )}
                           </div>
                         </div>
-                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                          <div className="flex items-center gap-2">
-                            <Button
-                              onClick={handleSave}
-                              disabled={isLoading}
-                              variant="outline"
-                              size="sm"
-                              className="w-full sm:w-auto"
-                            >
-                              {isLoading ? (
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                              ) : (
-                                <Save className="mr-2 h-4 w-4" />
-                              )}
-                              {isLoading ? BUTTONS.SAVING : BUTTONS.SAVE_TEMP}
-                            </Button>
-                            <Button
-                              onClick={handleDelete}
-                              disabled={isLoading}
-                              variant="destructive"
-                              size="sm"
-                              className="w-full sm:w-auto"
-                            >
-                              {isLoading ? (
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                              ) : (
-                                <Trash2 className="mr-2 h-4 w-4" />
-                              )}
-                              {isLoading
-                                ? BUTTONS.DELETING
-                                : BUTTONS.DELETE_TERMS}
-                            </Button>
-                          </div>
-                          <div className="flex flex-col sm:flex-row gap-2">
-                            <Button
-                              onClick={handleActivate}
-                              disabled={isLoading}
-                              variant={
-                                currentTerm?.is_active
-                                  ? "destructive"
-                                  : "default"
-                              }
-                              size="sm"
-                              className="w-full sm:w-auto"
-                            >
-                              {isLoading ? (
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                              ) : currentTerm?.is_active ? (
-                                <AlertTriangle className="mr-2 h-4 w-4" />
-                              ) : (
-                                <CheckCircle className="mr-2 h-4 w-4" />
-                              )}
-                              {isLoading
-                                ? BUTTONS.ACTIVATING
-                                : currentTerm?.is_active
-                                ? BUTTONS.DEACTIVATE
-                                : BUTTONS.ACTIVATE}
-                            </Button>
-                            <Button
-                              onClick={handleCreateNewVersion}
-                              disabled={isLoading}
-                              variant="outline"
-                              size="sm"
-                              className="w-full sm:w-auto"
-                            >
-                              {isLoading ? (
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                              ) : (
-                                <Plus className="mr-2 h-4 w-4" />
-                              )}
-                              {BUTTONS.CREATE_NEW_VERSION}
-                            </Button>
-                          </div>
+                        <div className="grid grid-cols-2 sm:flex sm:flex-row items-stretch sm:items-center gap-2">
+                          <Button
+                            onClick={handleSave}
+                            disabled={isLoading}
+                            size="sm"
+                            variant="secondary"
+                            className="w-full sm:w-auto"
+                          >
+                            {isLoading ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <Save className="h-4 w-4" />
+                            )}
+                            {isLoading ? BUTTONS.SAVING : BUTTONS.SAVE_TEMP}
+                          </Button>
+                          <Button
+                            onClick={handleCreateNewVersion}
+                            disabled={isLoading}
+                            size="sm"
+                            className="w-full sm:w-auto"
+                          >
+                            {isLoading ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <Plus className="h-4 w-4" />
+                            )}
+                            {BUTTONS.CREATE_NEW_VERSION}
+                          </Button>
+                          <Button
+                            onClick={handleActivate}
+                            disabled={isLoading}
+                            variant={
+                              currentTerm?.is_active ? "destructive" : "default"
+                            }
+                            size="sm"
+                            className="w-full sm:w-auto"
+                          >
+                            {isLoading ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : currentTerm?.is_active ? (
+                              <AlertTriangle className="h-4 w-4" />
+                            ) : (
+                              <CheckCircle className="h-4 w-4" />
+                            )}
+                            {isLoading
+                              ? BUTTONS.ACTIVATING
+                              : currentTerm?.is_active
+                              ? BUTTONS.DEACTIVATE
+                              : BUTTONS.ACTIVATE}
+                          </Button>
+                          <Button
+                            onClick={handleDelete}
+                            disabled={isLoading}
+                            variant="destructive"
+                            size="sm"
+                            className="w-full sm:w-auto"
+                          >
+                            {isLoading ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <Trash2 className="h-4 w-4" />
+                            )}
+                            {isLoading
+                              ? BUTTONS.DELETING
+                              : BUTTONS.DELETE_TERMS}
+                          </Button>
                         </div>
                       </div>
                     </CardContent>

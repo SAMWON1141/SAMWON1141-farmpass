@@ -8,23 +8,38 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, ChevronRight } from "lucide-react";
-import Link from "next/link";
 import { features, steps } from "./home-data";
 import { Logo } from "@/components/common/logo";
+import { useSystemSettingsQuery } from "@/lib/hooks/query/use-system-settings-query";
+import { PageLoading } from "@/components/ui/loading";
 
 // 클라이언트 컴포넌트로 변경
 export default function HomePage() {
-  // 환경변수로 설정값 가져오기
+  // 시스템 설정값을 동적으로 가져오기
+  const { data: settings, isLoading } = useSystemSettingsQuery();
+
+  // 기본값과 동적 설정값을 결합
   const displaySettings = {
-    siteName:
-      process.env.NEXT_PUBLIC_SITE_NAME || "농장 출입 관리 시스템(FarmPass)",
+    siteName: settings?.siteName || "농장 출입 관리 시스템(FarmPass)",
     siteDescription:
-      process.env.NEXT_PUBLIC_SITE_DESCRIPTION ||
+      settings?.siteDescription ||
       "방역은 출입자 관리부터 시작됩니다. QR기록으로 축산 질병 예방의 첫걸음을 함께하세요.",
-    logo: process.env.NEXT_PUBLIC_SITE_LOGO || "/logo.svg",
+    logo: settings?.logo || "/logo.svg",
   };
+
+  // 로딩 중일 때 표시할 컴포넌트
+  if (isLoading) {
+    return (
+      <PageLoading
+        text="로딩중 잠시만 기다려주세요..."
+        variant="lottie"
+        fullScreen={true}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-farm">

@@ -1,6 +1,7 @@
 "use client";
 
 import { useLogo } from "@/hooks/ui/use-logo";
+import { useSystemSettingsQuery } from "@/lib/hooks/query/use-system-settings-query";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import type { SystemSettings } from "@/lib/types/settings";
@@ -8,8 +9,7 @@ import type { SystemSettings } from "@/lib/types/settings";
 interface LogoProps {
   className?: string;
   iconClassName?: string;
-  showText?: boolean;
-  textClassName?: string;
+
   size?: "sm" | "md" | "lg" | "xl" | "xxl";
   settings?: SystemSettings | null; // 중복 query 방지용
 }
@@ -18,27 +18,27 @@ const sizeMap = {
   sm: {
     container: "h-8 w-8",
     icon: "h-5 w-5",
-    text: "text-sm",
+    sizes: "32px", // 8 * 4 = 32px
   },
   md: {
     container: "h-10 w-10",
     icon: "h-6 w-6",
-    text: "text-base",
+    sizes: "40px", // 10 * 4 = 40px
   },
   lg: {
     container: "h-14 w-28",
     icon: "h-8 w-8",
-    text: "text-lg",
+    sizes: "112px", // 28 * 4 = 112px (가로 기준)
   },
   xl: {
     container: "h-16 w-40",
     icon: "h-10 w-10",
-    text: "text-sm",
+    sizes: "160px", // 40 * 4 = 160px (가로 기준)
   },
   xxl: {
     container: "h-24 w-40",
     icon: "h-16 w-16",
-    text: "text-xl",
+    sizes: "160px", // 40 * 4 = 160px (가로 기준)
   },
 };
 
@@ -49,13 +49,34 @@ const sizeMap = {
 export function Logo({
   className,
   iconClassName,
-  showText = false,
-  textClassName,
   size = "md",
   settings, // 중복 query 방지용
 }: LogoProps) {
-  const { logoUrl, siteName } = useLogo(settings);
+  // settings가 전달되지 않은 경우에만 쿼리 실행
+  const { data: systemSettings, isLoading } = useSystemSettingsQuery({
+    enabled: !settings, // settings가 없을 때만 쿼리 실행
+  });
+
+  // 전달받은 settings가 있으면 우선 사용, 없으면 쿼리 결과 사용
+  const currentSettings = settings || systemSettings;
+
+  const { logoUrl, siteName } = useLogo(currentSettings);
   const sizeConfig = sizeMap[size];
+
+  // 로딩 중일 때는 기본 로고 표시
+  if (isLoading && !settings) {
+    return (
+      <div className={cn("flex flex-col items-center gap-2", className)}>
+        <div
+          className={cn(
+            "relative overflow-hidden rounded-lg bg-muted animate-pulse",
+            sizeConfig.container,
+            iconClassName
+          )}
+        />
+      </div>
+    );
+  }
 
   return (
     <div className={cn("flex flex-col items-center gap-2", className)}>
@@ -66,20 +87,24 @@ export function Logo({
           iconClassName
         )}
       >
-        <Image
-          src={logoUrl}
-          alt={siteName}
-          fill
-          priority
-          className="object-contain"
-          sizes="(max-width: 768px) 32px, 40px"
-        />
+        {logoUrl.includes(".svg") ? (
+          <img
+            src={logoUrl}
+            alt={siteName}
+            className="h-full w-full object-contain"
+            style={{ maxWidth: "100%", maxHeight: "100%" }}
+          />
+        ) : (
+          <Image
+            src={logoUrl}
+            alt={siteName}
+            fill
+            priority
+            className="object-contain"
+            sizes={sizeConfig.sizes}
+          />
+        )}
       </div>
-      {showText && (
-        <span className={cn("font-semibold", sizeConfig.text, textClassName)}>
-          {siteName}
-        </span>
-      )}
     </div>
   );
 }

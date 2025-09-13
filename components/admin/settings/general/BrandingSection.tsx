@@ -59,6 +59,11 @@ export function BrandingSection({
       } else {
         setFaviconPreview(null);
       }
+
+      // 파비콘 업로드 완료 후 페이지 새로고침
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000); // 1초 후 새로고침 (사용자가 성공 메시지를 볼 수 있도록)
     },
   });
 

@@ -21,8 +21,10 @@ const roleConfig = {
     mobileLabel: LABELS.ROLE_BADGE_OWNER_MOBILE,
     icon: Shield,
     colors: {
-      default: "bg-purple-100 text-purple-800 border-purple-200",
-      outline: "border-purple-300 text-purple-700 hover:bg-purple-50",
+      default:
+        "bg-purple-100 text-purple-800 border-purple-200 hover:bg-purple-200",
+      outline:
+        "border-purple-300 text-purple-700 hover:bg-purple-50 hover:border-purple-400",
       solid: "bg-purple-600 text-white hover:bg-purple-700",
     },
   },
@@ -32,8 +34,9 @@ const roleConfig = {
     mobileLabel: LABELS.ROLE_BADGE_MANAGER_MOBILE,
     icon: UserCheck,
     colors: {
-      default: "bg-blue-100 text-blue-800 border-blue-200",
-      outline: "border-blue-300 text-blue-700 hover:bg-blue-50",
+      default: "bg-blue-100 text-blue-800 border-blue-200 hover:bg-blue-200",
+      outline:
+        "border-blue-300 text-blue-700 hover:bg-blue-50 hover:border-blue-400",
       solid: "bg-blue-600 text-white hover:bg-blue-700",
     },
   },
@@ -43,8 +46,10 @@ const roleConfig = {
     mobileLabel: LABELS.ROLE_BADGE_VIEWER_MOBILE,
     icon: Eye,
     colors: {
-      default: "bg-green-100 text-green-800 border-green-200",
-      outline: "border-green-300 text-green-700 hover:bg-green-50",
+      default:
+        "bg-green-100 text-green-800 border-green-200 hover:bg-green-200",
+      outline:
+        "border-green-300 text-green-700 hover:bg-green-50 hover:border-green-400",
       solid: "bg-green-600 text-white hover:bg-green-700",
     },
   },

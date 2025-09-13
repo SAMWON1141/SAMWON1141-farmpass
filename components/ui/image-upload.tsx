@@ -208,13 +208,19 @@ export function ImageUpload({
               )}
             >
               <div
-                className={`${CENTER_CIRCLE_SIZE_MAP[avatarSize]} rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center`}
+                className={`${
+                  CENTER_CIRCLE_SIZE_MAP[avatarSize]
+                } rounded-full flex items-center justify-center overflow-hidden ${
+                  currentImage && currentImage !== "" && !imgError
+                    ? "bg-gray-100" // 이미지가 있을 때는 중성적 배경
+                    : "bg-gradient-to-br from-blue-500 to-purple-600" // 이미지가 없을 때는 그라데이션 배경
+                }`}
               >
                 {currentImage && currentImage !== "" && !imgError ? (
                   <img
                     src={currentImage}
                     alt={label}
-                    className="w-full h-full rounded-full object-cover"
+                    className="w-full h-full rounded-full object-contain"
                     onError={() => setImgError(true)}
                   />
                 ) : loading ? (
@@ -225,7 +231,7 @@ export function ImageUpload({
                       size: 128,
                     })}
                     alt={label}
-                    className="w-full h-full rounded-full object-cover"
+                    className="w-full h-full rounded-full object-contain"
                     onError={() => setImgError(true)}
                   />
                 ) : (
