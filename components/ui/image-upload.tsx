@@ -245,7 +245,7 @@ export function ImageUpload({
           <Button
             size="sm"
             variant="outline"
-            onClick={() => handleFileSelectWithCamera(true)}
+            onClick={() => handleFileSelectWithCamera()}
             disabled={loading}
             className="absolute bottom-3 right-3 bg-white shadow-lg border-2 border-blue-200 hover:border-blue-300 rounded-full w-10 h-10 p-0"
           >
