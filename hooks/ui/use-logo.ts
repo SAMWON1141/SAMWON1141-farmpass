@@ -24,8 +24,8 @@ export function useLogo(settings?: SystemSettings | null): LogoInfo {
   };
 
   const imageUrl = useMemo(() => {
-    // 로고가 없으면 기본 로고 사용
-    if (!currentSettings?.logo) {
+    // 로고가 없거나 빈 문자열이면 기본 로고 사용
+    if (!currentSettings?.logo || currentSettings.logo.trim() === "") {
       return "/logo.svg";
     }
 

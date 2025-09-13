@@ -39,7 +39,7 @@ export const FarmCard = React.memo(function FarmCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <Card className="card-hover min-h-[400px] flex flex-col">
+      <Card className="min-h-[400px] flex flex-col">
         <CardHeader className="space-y-3 pb-3 flex-shrink-0">
           <FarmCardHeader farm={farm} isOwner={isOwner} />
           <FarmCardActions

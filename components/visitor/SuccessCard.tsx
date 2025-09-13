@@ -32,7 +32,7 @@ export const SuccessCard = ({ onGoHome }: SuccessCardProps) => {
             {/* 회사 브랜딩 */}
             <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 p-3 sm:p-4 rounded-lg">
               <div className="text-center space-y-1.5 sm:space-y-2">
-                <Logo showText className="justify-center" size="xl" />
+                <Logo className="justify-center" size="xl" />
                 <p className="text-xs text-blue-600">
                   {LABELS.SUCCESS_CARD_POWERED_BY}{" "}
                   <span className="font-bold">

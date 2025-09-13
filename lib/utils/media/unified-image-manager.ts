@@ -115,17 +115,134 @@ export class UnifiedImageManager {
   }
 
   /**
-   * 업로드 전 정리 작업
+   * Canvas API를 사용한 이미지 처리
+   * 리사이징, 품질 조절, 형식 변환을 수행합니다.
    */
-  private async performPreUploadCleanup(): Promise<void> {
+  private async processImageWithCanvas(file: File): Promise<File> {
     const config = this.getUploadConfig();
 
-    if (config.preUploadCleanup) {
-      try {
-        await config.preUploadCleanup();
-      } catch (error) {
-        devLog.warn("업로드 전 정리 작업 실패:", error);
+    return new Promise((resolve, reject) => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      if (!ctx) {
+        resolve(file);
+        return;
       }
+
+      const img = new Image();
+
+      img.onload = () => {
+        try {
+          // 원본 이미지 크기
+          const originalWidth = img.width;
+          const originalHeight = img.height;
+
+          // 리사이징 계산 (비율 유지)
+          let newWidth = originalWidth;
+          let newHeight = originalHeight;
+          let needsResize = false;
+
+          if (
+            originalWidth > config.maxWidth ||
+            originalHeight > config.maxHeight
+          ) {
+            needsResize = true;
+            const aspectRatio = originalWidth / originalHeight;
+
+            if (originalWidth > originalHeight) {
+              newWidth = Math.min(originalWidth, config.maxWidth);
+              newHeight = newWidth / aspectRatio;
+
+              if (newHeight > config.maxHeight) {
+                newHeight = config.maxHeight;
+                newWidth = newHeight * aspectRatio;
+              }
+            } else {
+              newHeight = Math.min(originalHeight, config.maxHeight);
+              newWidth = newHeight * aspectRatio;
+
+              if (newWidth > config.maxWidth) {
+                newWidth = config.maxWidth;
+                newHeight = newWidth / aspectRatio;
+              }
+            }
+          }
+
+          // 형식 변환이 필요한지 확인
+          const needsFormatConversion =
+            config.targetFormat !== "original" &&
+            !file.type.includes(config.targetFormat);
+
+          // 리사이징이나 형식 변환이 필요하지 않으면 원본 반환
+          if (!needsResize && !needsFormatConversion) {
+            resolve(file);
+            return;
+          }
+
+          // Canvas 크기 설정
+          canvas.width = newWidth;
+          canvas.height = newHeight;
+
+          // 이미지 그리기 (고품질 리샘플링)
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = "high";
+          ctx.drawImage(img, 0, 0, newWidth, newHeight);
+
+          // MIME 타입 결정
+          const mimeType = this.getMimeType(config.targetFormat);
+
+          // Blob 생성 (품질 설정)
+          canvas.toBlob(
+            (blob) => {
+              if (!blob) {
+                resolve(file);
+                return;
+              }
+
+              // 처리된 파일 생성
+              const processedFile = new File([blob], file.name, {
+                type: mimeType,
+                lastModified: Date.now(),
+              });
+
+              resolve(processedFile);
+            },
+            mimeType,
+            config.quality
+          );
+        } catch (error) {
+          devLog.error("이미지 처리 중 오류:", error);
+          resolve(file); // 오류 시 원본 반환
+        }
+      };
+
+      img.onerror = () => {
+        devLog.error("이미지 로드 실패. 원본 파일 반환");
+        resolve(file);
+      };
+
+      // 이미지 로드 시작
+      img.src = URL.createObjectURL(file);
+    });
+  }
+
+  /**
+   * targetFormat에 따른 MIME 타입 반환
+   */
+  private getMimeType(targetFormat: string): string {
+    switch (targetFormat.toLowerCase()) {
+      case "jpeg":
+      case "jpg":
+        return "image/jpeg";
+      case "png":
+        return "image/png";
+      case "webp":
+        return "image/webp";
+      case "ico":
+        return "image/x-icon";
+      default:
+        return "image/jpeg"; // 기본값
     }
   }
 
@@ -160,29 +277,31 @@ export class UnifiedImageManager {
       onProgress?.(10);
       this.state.progress = 10;
 
-      // 업로드 전 정리
-      await this.performPreUploadCleanup();
-      onProgress?.(20);
-      this.state.progress = 20;
+      // Canvas API를 사용한 이미지 처리
+      const processedFile = await this.processImageWithCanvas(file);
+
+      // 진행률 업데이트
+      onProgress?.(30);
+      this.state.progress = 30;
 
       // 기존 파일 삭제
       if (prevFileName) {
         await this.deleteExistingFile(prevFileName);
-        onProgress?.(30);
-        this.state.progress = 30;
+        onProgress?.(50);
+        this.state.progress = 50;
       }
 
-      // 파일명 생성 - contextId 전달
-      const fileName = config.pathGenerator(file, this.contextId);
-      onProgress?.(40);
-      this.state.progress = 40;
+      // 파일명 생성 - contextId 전달 (처리된 파일 사용)
+      const fileName = config.pathGenerator(processedFile, this.contextId);
+      onProgress?.(60);
+      this.state.progress = 60;
 
-      // Supabase Storage에 업로드
+      // Supabase Storage에 업로드 (처리된 파일 사용)
       const { data, error: uploadError } = await supabase.storage
         .from(config.bucket)
-        .upload(fileName, file, {
+        .upload(fileName, processedFile, {
           cacheControl: config.cacheControl,
-          contentType: file.type,
+          contentType: processedFile.type,
         });
 
       if (uploadError) {

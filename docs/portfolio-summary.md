@@ -667,18 +667,16 @@ E2E Tests (Playwright) # 사용자 시나리오 테스트
 ### 데모 및 소스코드
 
 ```
-🌐 라이브 데모: https://farm-pass-demo.vercel.app
-📁 GitHub: https://github.com/username/farm-pass
+🌐 라이브 데모: https://farmpass.site
+📁 GitHub: https://github.com/sosiluv
 📋 문서: /docs 폴더 참조
-🎥 데모 영상: YouTube 링크
 ```
 
 ### 기술 문의
 
 ```
-📧 이메일: developer@example.com
-💼 LinkedIn: linkedin.com/in/username
-📱 포트폴리오: portfolio.example.com
+📧 이메일: admin@samwon1141.com
+
 ```
 
 ---

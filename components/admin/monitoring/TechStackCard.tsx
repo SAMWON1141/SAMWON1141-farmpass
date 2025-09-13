@@ -9,6 +9,8 @@ import {
   Activity,
   BarChart3,
   Bell,
+  Smartphone,
+  Zap,
 } from "lucide-react";
 import { PAGE_HEADER } from "@/lib/constants/monitoring";
 import type { TechStackData } from "@/lib/types/monitoring";
@@ -29,6 +31,8 @@ export function TechStackCard({ data }: TechStackCardProps) {
     deployment: data?.deployment || "Vercel",
     ui: data?.ui || "ShadCN UI + Tailwind CSS",
     state: data?.state || "React Query + Zustand",
+    pwa: data?.pwa || "Serwist 9.2.0",
+    pushNotifications: data?.pushNotifications || "Web Push 3.6.7",
     monitoring: data?.monitoring || "UptimeRobot",
     analytics: data?.analytics || "Google Analytics 4",
   };
@@ -48,6 +52,10 @@ export function TechStackCard({ data }: TechStackCardProps) {
         return <Palette className="h-4 w-4" />;
       case "state":
         return <Activity className="h-4 w-4" />;
+      case "pwa":
+        return <Smartphone className="h-4 w-4" />;
+      case "pushNotifications":
+        return <Zap className="h-4 w-4" />;
       case "monitoring":
         return <BarChart3 className="h-4 w-4" />;
       case "analytics":
@@ -71,6 +79,10 @@ export function TechStackCard({ data }: TechStackCardProps) {
       case "ui":
         return "default";
       case "state":
+        return "secondary";
+      case "pwa":
+        return "default";
+      case "pushNotifications":
         return "secondary";
       case "monitoring":
         return "outline";

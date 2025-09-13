@@ -1,6 +1,7 @@
 import { MemberCard } from "./MemberCard";
 import { LABELS } from "@/lib/constants/farms";
 import type { MemberWithProfile } from "@/lib/types/farm";
+import { CommonListWrapper } from "../../management/shared/CommonListWrapper";
 
 interface MembersListProps {
   members: MemberWithProfile[];
@@ -48,7 +49,7 @@ export function MembersList({
   }
 
   return (
-    <div className="space-y-2 sm:space-y-3 md:space-y-4">
+    <CommonListWrapper>
       {(members || []).map((member) => (
         <MemberCard
           key={member.id}
@@ -58,6 +59,6 @@ export function MembersList({
           onRoleChange={onRoleChange}
         />
       ))}
-    </div>
+    </CommonListWrapper>
   );
 }

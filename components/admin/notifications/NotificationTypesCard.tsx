@@ -34,7 +34,7 @@ export function NotificationTypesCard({
           {NOTIFICATION_TYPES.map((type) => (
             <div
               key={type.key}
-              className="flex flex-row items-center justify-between gap-4 p-4 rounded-lg border bg-card hover:bg-accent/5 transition-colors"
+              className="flex flex-row items-center justify-between gap-4 p-4 rounded-lg border bg-card hover:bg-accent/5 transition-colors cursor-pointer hover:border-primary btn-hover"
             >
               <div className="flex items-center gap-3">
                 <div className={`p-2 rounded-full ${type.iconColor}`}>

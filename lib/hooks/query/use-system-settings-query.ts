@@ -9,9 +9,10 @@ import type { SystemSettings } from "@/lib/types/settings";
  * API 라우트를 통해 Prisma로 시스템 설정을 조회합니다.
  * 인증 없이도 조회 가능합니다.
  */
-export function useSystemSettingsQuery() {
+export function useSystemSettingsQuery(options?: { enabled?: boolean }) {
   const result = useQuery({
     queryKey: settingsKeys.general(),
+    enabled: options?.enabled !== false, // 기본값은 true, false일 때만 비활성화
     queryFn: async (): Promise<SystemSettings> => {
       try {
         // 간단한 fetch 사용 (인증 로직 없이)
@@ -96,14 +97,13 @@ export function useSystemSettingsQuery() {
       }
     },
     // 시스템 설정은 인증 없이도 조회 가능해야 함 (회원가입, 메인페이지 등에서 사용)
-    enabled: true, // 항상 활성화 (무한 로딩 방지)
-    staleTime: 30 * 60 * 1000, // 30분간 stale하지 않음 (설정은 자주 변경되지 않음)
-    gcTime: 60 * 60 * 1000, // 1시간간 캐시 유지
-    refetchOnWindowFocus: false,
-    refetchOnMount: true, // 마운트시 자동 refetch 활성화
+    staleTime: 2 * 60 * 60 * 1000, // 2시간간 stale하지 않음 (설정은 매우 드물게 변경됨)
+    gcTime: 4 * 60 * 60 * 1000, // 4시간간 캐시 유지 (메모리 효율성)
+    refetchOnWindowFocus: false, // 윈도우 포커스시 refetch 비활성화 (설정은 자주 변경되지 않음)
+    refetchOnMount: false, // 마운트시 자동 refetch 비활성화 (캐시 우선 사용)
     refetchOnReconnect: true, // 재연결시 자동 refetch 활성화
-    retry: 1, // 실패 시 1번만 재시도 (무한 재시도 방지)
-    retryDelay: 1000, // 1초 후 재시도
+    retry: 1, // 실패 시 2번 재시도 (네트워크 오류 대응)
+    retryDelay: 1000, // 2초 후 재시도
   });
 
   return result;

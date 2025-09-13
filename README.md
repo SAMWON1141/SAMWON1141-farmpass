@@ -152,15 +152,13 @@
 
 ### 프로젝트 관련
 
-- **라이브 데모**: https://farm-pass-demo.vercel.app
-- **GitHub 레포지토리**: https://github.com/username/farm-pass
+- **라이브 데모**: https://farmpass.site
+- **GitHub 레포지토리**: https://github.com/sosiluv
 - **기술 문서**: 이 폴더의 문서들 참조
 
 ### 개발자 연락처
 
-- **이메일**: developer@example.com
-- **LinkedIn**: linkedin.com/in/username
-- **포트폴리오**: portfolio.example.com
+- **이메일**: admin@samwon1141.com
 
 ---
 

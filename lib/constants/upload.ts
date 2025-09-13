@@ -82,7 +82,6 @@ export const UPLOAD_TYPE_CONFIGS: Record<
     dbTable?: string;
     dbField?: string;
     cacheBusterField?: string;
-    preUploadCleanup?: () => Promise<void>;
   }
 > = {
   profile: {
@@ -90,7 +89,7 @@ export const UPLOAD_TYPE_CONFIGS: Record<
     maxSize: 5 * 1024 * 1024,
     maxWidth: 1024,
     maxHeight: 1024,
-    quality: 0.8,
+    quality: 0.9,
     targetFormat: "jpeg",
     allowedTypes: ["image/jpeg", "image/png"] as const,
     allowedExtensions: [".jpg", ".jpeg", ".png"] as const,
@@ -101,7 +100,6 @@ export const UPLOAD_TYPE_CONFIGS: Record<
     },
     dbTable: "profiles",
     dbField: "profile_image_url",
-    preUploadCleanup: undefined,
   },
 
   logo: {
@@ -109,8 +107,8 @@ export const UPLOAD_TYPE_CONFIGS: Record<
     maxSize: 5 * 1024 * 1024,
     maxWidth: 512,
     maxHeight: 512,
-    quality: 0.9,
-    targetFormat: "png",
+    quality: 1.0,
+    targetFormat: "original", // SVG 등 원본 형식 유지
     allowedTypes: ["image/png", "image/jpeg", "image/svg+xml"] as const,
     allowedExtensions: [".png", ".jpg", ".jpeg", ".svg"] as const,
     cacheControl: "public, max-age=31536000",
@@ -120,29 +118,25 @@ export const UPLOAD_TYPE_CONFIGS: Record<
     },
     dbTable: "system_settings",
     dbField: "logo",
-    preUploadCleanup: async () => {
-      // 로고 파일 정리 로직
-    },
   },
 
   favicon: {
     bucket: "profiles" as const,
-    maxSize: 5 * 1024 * 1024,
-    maxWidth: 64,
-    maxHeight: 64,
-    quality: 1.0,
-    targetFormat: "ico",
+    maxSize: 1 * 1024 * 1024, // 1MB로 축소 (파비콘은 매우 작음)
+    maxWidth: 32, // 32px로 축소 (파비콘은 매우 작음)
+    maxHeight: 32,
+    quality: 1.0, // 최고 품질 (작은 크기에서 선명도 중요)
+    targetFormat: "png", // ICO 대신 PNG 사용 (더 나은 호환성)
     allowedTypes: ["image/x-icon", "image/png"] as const,
     allowedExtensions: [".ico", ".png"] as const,
     cacheControl: "public, max-age=31536000",
     pathGenerator: (file: File) => {
       const ext = file.name.split(".").pop()?.toLowerCase() || "png";
-      // 공개 접근 가능한 경로로 저장
-      return `favicon.${ext}`;
+      // 로고와 동일한 경로 구조 사용 (RLS 정책 호환)
+      return `systems/favicon_${Date.now()}.${ext}`;
     },
     dbTable: "system_settings",
     dbField: "favicon",
-    preUploadCleanup: undefined,
   },
 
   visitorPhoto: {
@@ -161,16 +155,15 @@ export const UPLOAD_TYPE_CONFIGS: Record<
         .toString(36)
         .substr(2, 9)}.${ext}`;
     },
-    preUploadCleanup: undefined,
   },
 
   notificationIcon: {
     bucket: "profiles" as const,
-    maxSize: 5 * 1024 * 1024,
-    maxWidth: 128,
-    maxHeight: 128,
-    quality: 0.9,
-    targetFormat: "png",
+    maxSize: 1 * 1024 * 1024, // 1MB로 축소 (아이콘은 작은 파일)
+    maxWidth: 64, // 64px로 축소 (아이콘은 작게 표시)
+    maxHeight: 64,
+    quality: 1.0, // 최고 품질 (아이콘은 선명해야 함)
+    targetFormat: "png", // 투명도 지원 (아이콘에 중요)
     allowedTypes: ["image/png", "image/jpeg"] as const,
     allowedExtensions: [".png", ".jpg", ".jpeg"] as const,
     cacheControl: "public, max-age=31536000",
@@ -180,16 +173,15 @@ export const UPLOAD_TYPE_CONFIGS: Record<
     },
     dbTable: "system_settings",
     dbField: "notification_icon",
-    preUploadCleanup: undefined,
   },
 
   notificationBadge: {
     bucket: "profiles" as const,
-    maxSize: 5 * 1024 * 1024,
-    maxWidth: 128,
-    maxHeight: 128,
-    quality: 0.9,
-    targetFormat: "png",
+    maxSize: 1 * 1024 * 1024, // 1MB로 축소 (배지는 작은 파일)
+    maxWidth: 64, // 64px로 축소 (배지는 작게 표시)
+    maxHeight: 64,
+    quality: 1.0, // 최고 품질 (배지는 선명해야 함)
+    targetFormat: "png", // 투명도 지원 (배지에 중요)
     allowedTypes: ["image/png", "image/jpeg"] as const,
     allowedExtensions: [".png", ".jpg", ".jpeg"] as const,
     cacheControl: "public, max-age=31536000",
@@ -199,6 +191,5 @@ export const UPLOAD_TYPE_CONFIGS: Record<
     },
     dbTable: "system_settings",
     dbField: "notification_badge",
-    preUploadCleanup: undefined,
   },
 } as const;

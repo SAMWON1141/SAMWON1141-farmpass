@@ -68,6 +68,8 @@ export interface SystemStatusData {
         deployment?: string;
         ui?: string;
         state?: string;
+        pwa?: string;
+        pushNotifications?: string;
         monitoring?: string;
         analytics?: string;
       };
@@ -91,6 +93,8 @@ export interface TechStackData {
   deployment?: string;
   ui?: string;
   state?: string;
+  pwa?: string;
+  pushNotifications?: string;
   monitoring?: string;
   analytics?: string;
 }

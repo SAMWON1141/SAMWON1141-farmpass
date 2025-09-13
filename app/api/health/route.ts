@@ -31,6 +31,7 @@ const CPU_THRESHOLD = parseInt(process.env.CPU_THRESHOLD || "80");
  * - 데이터베이스 연결 상태 확인
  * - 서버 업타임 및 성능 메트릭 수집
  * - 시스템 리소스 사용량 모니터링
+ * - PWA 및 서비스 워커 상태 확인
  * - 환경 정보 및 버전 정보 제공
  * - 외부 모니터링 서비스 연동 지원
  *
@@ -252,6 +253,16 @@ export async function GET() {
             state: `React Query ${
               packageJson.dependencies["@tanstack/react-query"] || "unknown"
             } + Zustand ${packageJson.dependencies["zustand"] || "unknown"}`,
+            pwa: `Serwist ${
+              packageJson.dependencies["serwist"] || "unknown"
+            } (Next.js Plugin: ${
+              packageJson.dependencies["@serwist/next"] || "unknown"
+            }, Webpack Plugin: ${
+              packageJson.dependencies["@serwist/webpack-plugin"] || "unknown"
+            })`,
+            pushNotifications: `Web Push ${
+              packageJson.dependencies["web-push"] || "unknown"
+            }`,
             monitoring: "UptimeRobot",
             analytics: "Google Analytics 4",
           },

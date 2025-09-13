@@ -1,3 +1,4 @@
+import { CommonListItem } from "../../management/shared/CommonListItem";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { RoleBadge, UserRole } from "@/components/user/role-badge";
 import { QuickActionButtons } from "@/components/user/quick-action-buttons";
@@ -23,10 +24,9 @@ export function MemberCard({
   onRoleChange,
 }: MemberCardProps) {
   return (
-    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 border rounded-lg hover:bg-accent/5 transition-colors gap-3 sm:gap-4">
-      {/* 모바일: 세로 레이아웃, 태블릿+: 가로 레이아웃 */}
-      <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
-        {member.profile_image_url ? (
+    <CommonListItem
+      avatar={
+        member.profile_image_url ? (
           <ZoomableImage
             src={getAvatarUrl(
               {
@@ -62,30 +62,27 @@ export function MemberCard({
               {generateInitials(member.representative_name)}
             </AvatarFallback>
           </Avatar>
-        )}
-
-        <div className="min-w-0 flex-1">
-          <div className="font-medium truncate">
-            {member.representative_name}
-          </div>
-          <div className="text-sm text-muted-foreground truncate">
-            {member.email}
-          </div>
+        )
+      }
+      primary={<span>{member.representative_name}</span>}
+      secondary={<span>{member.email}</span>}
+      badges={
+        <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+          <RoleBadge role={member.role as UserRole} />
         </div>
-      </div>
-
-      {/* 배지와 액션 버튼 */}
-      <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-        <RoleBadge role={member.role as UserRole} />
-        <QuickActionButtons
-          memberRole={member.role as UserRole}
-          memberId={member.id}
-          memberName={member.representative_name}
-          onDelete={onDelete}
-          onRoleChange={onRoleChange}
-          canManageMembers={canManageMembers}
-        />
-      </div>
-    </div>
+      }
+      actions={
+        <div className="flex items-center gap-2 flex-shrink-0 ml-1">
+          <QuickActionButtons
+            memberRole={member.role as UserRole}
+            memberId={member.id}
+            memberName={member.representative_name}
+            onDelete={onDelete}
+            onRoleChange={onRoleChange}
+            canManageMembers={canManageMembers}
+          />
+        </div>
+      }
+    />
   );
 }
