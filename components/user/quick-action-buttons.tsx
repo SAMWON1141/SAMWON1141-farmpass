@@ -44,7 +44,7 @@ export function QuickActionButtons({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" size="sm" className="h-8 px-2">
-            <Shield className="h-4 w-4 mr-2" />
+            <Shield className="h-4 w-4" />
             {BUTTONS.QUICK_ACTION_CHANGE_PERMISSION}
           </Button>
         </DropdownMenuTrigger>
@@ -71,7 +71,7 @@ export function QuickActionButtons({
         onClick={() => onDelete?.(memberId)}
         className="h-8 px-2"
       >
-        <UserMinus className="h-4 w-4 mr-2" />
+        <UserMinus className="h-4 w-4" />
         {BUTTONS.QUICK_ACTION_DELETE}
       </Button>
     </div>

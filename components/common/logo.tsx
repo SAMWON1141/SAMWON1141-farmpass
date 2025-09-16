@@ -93,6 +93,8 @@ export function Logo({
             alt={siteName}
             className="h-full w-full object-contain"
             style={{ maxWidth: "100%", maxHeight: "100%" }}
+            fetchPriority="high"
+            loading="eager"
           />
         ) : (
           <Image
@@ -102,6 +104,7 @@ export function Logo({
             priority
             className="object-contain"
             sizes={sizeConfig.sizes}
+            fetchPriority="high"
           />
         )}
       </div>

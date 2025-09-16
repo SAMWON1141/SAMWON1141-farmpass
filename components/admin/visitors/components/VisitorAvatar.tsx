@@ -66,6 +66,7 @@ export function VisitorAvatar({
               { profile_image_url: imageUrl, name },
               { size: 128 }
             )}
+            alt={`${name} 프로필 이미지`}
           />
           <AvatarFallback className={`${getAvatarColor(name)} text-white`}>
             {generateInitials(name)}

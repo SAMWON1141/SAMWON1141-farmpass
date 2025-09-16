@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
           success: true,
           message: `${farmCreateData.farm_name}이 등록되었습니다.`,
         },
-        { status: 201, headers: { "Cache-Control": "no-store" } }
+        { status: 201 }
       );
     } catch (error) {
       throwBusinessError(
@@ -295,10 +295,7 @@ export async function GET(request: NextRequest) {
       request
     );
 
-    return NextResponse.json(
-      { farms },
-      { headers: { "Cache-Control": "no-store" } }
-    );
+    return NextResponse.json({ farms }, { status: 200 });
   } catch (error) {
     // 농장 목록 조회 실패 로그 기록
     const errorMessage = error instanceof Error ? error.message : String(error);

@@ -8,7 +8,7 @@
     --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card-foreground: 222 47% 8%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
@@ -20,13 +20,13 @@
     --secondary-foreground: 142 76% 20%;
 
     --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted-foreground: 215.4 16.3% 35%; /* 더 어두운 색상으로 대비 개선 */
 
     --accent: 142 55% 96%;
-    --accent-foreground: 142 76% 20%;
+    --accent-foreground: 142 76% 15%; /* 더 어두운 색상으로 대비 개선 */
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
@@ -52,13 +52,13 @@
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217.2 32.6% 22%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted-foreground: 215 20.2% 75%; /* 더 밝은 색상으로 대비 개선 */
 
     --accent: 142 30% 20%;
-    --accent-foreground: 210 40% 98%;
+    --accent-foreground: 210 40% 98%; /* 이미 충분한 대비 */
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 0 0% 100%;
 
     --border: 217.2 32.6% 22%;
     --input: 217.2 32.6% 22%;
@@ -345,4 +345,82 @@
 
 .animate-pulse-gentle {
   animation: pulse-gentle 2s ease-in-out infinite;
+}
+
+/* Forced reflow 최적화 */
+.will-change-transform {
+  will-change: transform;
+}
+
+/* GPU 가속 최적화 */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* 애니메이션 최적화 */
+.animate-optimized {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* MDEditor 터치 타겟 최적화 */
+.w-md-editor-toolbar button {
+  min-width: 32px !important;
+  min-height: 32px !important;
+  padding: 6px !important;
+  margin: 1px !important;
+}
+
+.w-md-editor-toolbar {
+  min-height: auto !important;
+  max-height: none !important;
+  height: auto !important;
+  padding: 6px !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 3px !important;
+}
+
+.w-md-editor-toolbar button svg {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+/* MDEditor 전체 컨테이너 높이 조정 */
+.md-editor-container .w-md-editor {
+  height: 100% !important;
+}
+
+/* 모바일에서 툴바 반응형 최적화 */
+@media (max-width: 768px) {
+  .w-md-editor-toolbar {
+    padding: 6px !important;
+    min-height: 100px !important;
+    max-height: none !important;
+    height: auto !important;
+    overflow-y: hidden !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 3px !important;
+  }
+
+  .w-md-editor-toolbar button {
+    min-width: 28px !important;
+    min-height: 28px !important;
+    padding: 4px !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .w-md-editor-toolbar button svg {
+    width: 12px !important;
+    height: 12px !important;
+  }
 }

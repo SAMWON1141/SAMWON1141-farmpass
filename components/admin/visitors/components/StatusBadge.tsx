@@ -17,8 +17,8 @@ export function StatusBadge({
   if (isCompleted) {
     const colorClass =
       variant === "consent"
-        ? "bg-blue-100 text-blue-700 border-blue-300"
-        : "bg-emerald-100 text-emerald-700 border-emerald-300";
+        ? "bg-blue-100 text-blue-800 border-blue-300"
+        : "bg-emerald-100 text-emerald-800 border-emerald-300";
 
     return (
       <Badge
@@ -32,8 +32,8 @@ export function StatusBadge({
 
   const colorClass =
     variant === "consent"
-      ? "bg-gray-100 text-gray-700 border-gray-300"
-      : "bg-red-100 text-red-700 border-red-300";
+      ? "bg-gray-100 text-gray-800 border-gray-300"
+      : "bg-red-100 text-red-800 border-red-300";
 
   return (
     <Badge

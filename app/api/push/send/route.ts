@@ -670,12 +670,7 @@ export async function POST(request: NextRequest) {
         },
         results,
       },
-      {
-        status: 200,
-        headers: {
-          "Cache-Control": "no-store",
-        },
-      }
+      { status: 200 }
     );
   } catch (error) {
     // 푸시 알림 발송 시스템 오류 로그

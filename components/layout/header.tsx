@@ -64,12 +64,10 @@ export function Header() {
             {HEADER_MENU.MENU}
           </span>
         </Button>
-        <Logo size="xl" className="sm:hidden" />
-        <Logo size="xxl" className="hidden sm:block" />
       </div>
 
       {/* 오른쪽 아이콘들 */}
-      <div className="flex items-center gap-2 mr-2 sm:mr-4">
+      <div className="flex items-center gap-2 mr-2 sm:mr-4 min-w-[120px] h-10">
         <ThemeToggle />
         <RealtimeNotificationBell />
 

@@ -32,8 +32,10 @@ export function ImageZoomModal({
   // 핀치로 확대/축소
   const pinchBind = usePinch(
     ({ offset: [s], memo }) => {
-      const newScale = Math.max(0.5, Math.min(5, s)); // 0.5배 ~ 5배 제한
-      setScale(newScale);
+      requestAnimationFrame(() => {
+        const newScale = Math.max(0.5, Math.min(5, s)); // 0.5배 ~ 5배 제한
+        setScale(newScale);
+      });
       return memo;
     },
     {
@@ -42,10 +44,12 @@ export function ImageZoomModal({
     }
   );
 
-  // 드래그로 이미지 이동
+  // 드래그로 이미지 이동 (requestAnimationFrame으로 최적화)
   const dragBind = useDrag(
     ({ offset: [x, y] }) => {
-      setPosition([x, y]);
+      requestAnimationFrame(() => {
+        setPosition([x, y]);
+      });
     },
     {
       enabled: scale > 1, // 확대된 상태에서만 드래그 가능
@@ -55,8 +59,10 @@ export function ImageZoomModal({
   // 마우스 휠로 확대/축소
   const wheelBind = useWheel(
     ({ delta: [, dy] }) => {
-      const newScale = Math.max(0.5, Math.min(5, scale - dy * 0.01));
-      setScale(newScale);
+      requestAnimationFrame(() => {
+        const newScale = Math.max(0.5, Math.min(5, scale - dy * 0.01));
+        setScale(newScale);
+      });
     },
     {
       preventDefault: true,
@@ -158,7 +164,7 @@ export function ImageZoomModal({
               {...wheelBind()}
               src={imageUrl}
               alt={alt}
-              className="max-w-full max-h-full object-contain cursor-grab active:cursor-grabbing"
+              className="max-w-full max-h-full object-contain cursor-grab active:cursor-grabbing animate-optimized"
               style={{
                 transform: `translate(${position[0]}px, ${position[1]}px) scale(${scale})`,
                 transformOrigin: "center",

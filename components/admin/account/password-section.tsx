@@ -105,9 +105,9 @@ export function PasswordSection({
                 <span className="text-xs text-white">✓</span>
               </div>
             </div>
-            <h3 className="text-lg sm:text-xl font-semibold mb-2 text-blue-800 dark:text-blue-200">
+            <div className="text-lg sm:text-xl font-semibold mb-2 text-blue-800 dark:text-blue-200">
               {LABELS.SOCIAL_LOGIN_ACCOUNT}
-            </h3>
+            </div>
             <p className="text-sm sm:text-base text-muted-foreground mb-6 max-w-sm mx-auto">
               {socialUserInfo.socialProvider === "google" &&
                 SOCIAL_LOGIN_MESSAGES.GOOGLE_LOGIN}

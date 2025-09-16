@@ -37,7 +37,7 @@ export function DocumentationSection() {
       description: LABELS.DOCUMENTATION_PRODUCT_OVERVIEW_DESC,
       icon: FileText,
       href: "/docs/product-overview.html",
-      color: "text-green-600",
+      color: "text-green-700 dark:text-green-200",
       bgColor: "bg-green-50",
     },
     {
@@ -93,9 +93,9 @@ export function DocumentationSection() {
                         <doc.icon className={`h-5 w-5 ${doc.color}`} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-medium text-sm sm:text-base mb-1 group-hover:text-blue-600 transition-colors">
+                        <div className="font-medium text-sm sm:text-base mb-1 group-hover:text-blue-600 transition-colors">
                           {doc.title}
-                        </h4>
+                        </div>
                         <p className="text-sm sm:text-base text-muted-foreground mb-3 line-clamp-2">
                           {doc.description}
                         </p>

@@ -95,7 +95,7 @@ async function handleMaliciousRequest(request: NextRequest) {
     status: 404,
     headers: {
       "X-Robots-Tag": "noindex, nofollow",
-      "Cache-Control": "no-cache, no-store, must-revalidate",
+      "Cache-Control": "no-cache, must-revalidate",
       "Content-Type": "text/plain",
     },
   });

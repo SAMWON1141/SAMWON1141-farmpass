@@ -49,7 +49,7 @@ export function StatCard({
             </div>
             <div className="min-w-0 flex-1">
               <p
-                className={`text-sm sm:text-base md:text-lg font-medium ${textColor} dark:text-slate-200 opacity-80 truncate mb-1`}
+                className={`text-sm sm:text-base md:text-lg font-medium ${textColor} dark:text-slate-100 truncate mb-1`}
               >
                 {title}
               </p>

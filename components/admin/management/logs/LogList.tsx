@@ -134,6 +134,7 @@ export function LogList({ logs, onShowDetails, onDeleteLog }: LogListProps) {
                         size="icon"
                         className="h-10 w-10 sm:h-12 sm:w-12 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 flex-shrink-0"
                         onClick={() => onShowDetails(log)}
+                        aria-label={`${log.action} 로그 상세보기`}
                       >
                         <Eye className="h-5 w-5 sm:h-6 sm:w-6 text-muted-foreground" />
                       </Button>
@@ -152,6 +153,7 @@ export function LogList({ logs, onShowDetails, onDeleteLog }: LogListProps) {
                           size="icon"
                           className="text-red-600 hover:text-red-700 hover:bg-red-50 h-8 w-8 sm:h-12 sm:w-12 rounded-full"
                           onClick={() => onDeleteLog(log.id)}
+                          aria-label={`${log.action} 로그 삭제`}
                         >
                           <Trash2 className="h-4 w-4 sm:h-6 sm:w-6" />
                         </Button>

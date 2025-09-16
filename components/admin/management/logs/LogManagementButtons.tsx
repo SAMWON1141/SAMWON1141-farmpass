@@ -41,7 +41,7 @@ export const LogManagementButtons = memo(
         <div className="flex items-center gap-1 sm:gap-2">
           <Button
             variant="outline"
-            className="bg-orange-50 text-orange-600 hover:bg-orange-100 hover:text-orange-700 border-orange-200"
+            className="bg-orange-50 text-orange-700 hover:bg-orange-100 hover:text-orange-800 border-orange-200 dark:bg-orange-900/20 dark:text-orange-300 dark:hover:bg-orange-900/30 dark:hover:text-orange-200 dark:border-orange-800"
             disabled={isLoading}
             onClick={() => setDeleteOldLogsOpen(true)}
           >

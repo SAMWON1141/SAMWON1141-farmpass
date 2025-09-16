@@ -27,8 +27,8 @@ export function CommonResultsSummary({
 }: CommonResultsSummaryProps) {
   const variantStyles = {
     default: "bg-card border",
-    primary: "bg-primary/5 border-primary/20",
-    secondary: "bg-secondary/5 border-secondary/20",
+    primary: "bg-primary/15 border-primary/30",
+    secondary: "bg-secondary/15 border-secondary/30",
   };
 
   const dotColors = {

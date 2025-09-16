@@ -220,7 +220,7 @@ export async function POST(request: NextRequest) {
         message: "푸시 알림 구독이 완료되었습니다.",
         subscription: newSubscription,
       },
-      { status: 201, headers: { "Cache-Control": "no-store" } }
+      { status: 201 }
     );
   } catch (error) {
     // 푸시 구독 생성 시스템 오류 로그
@@ -321,11 +321,7 @@ export async function GET(request: NextRequest) {
       }
       if (publicKey && privateKey) {
         const webpush = require("web-push");
-        webpush.setVapidDetails(
-          "mailto:admin@samwon1141.com",
-          publicKey,
-          privateKey
-        );
+        webpush.setVapidDetails("mailto:admin@demo.com", publicKey, privateKey);
 
         // 각 구독의 유효성 검사
         for (const subscription of subscriptions) {
@@ -391,7 +387,6 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(response, {
       status: 200,
-      headers: { "Cache-Control": "no-store" },
     });
   } catch (error) {
     // 푸시 구독 조회 시스템 오류 로그

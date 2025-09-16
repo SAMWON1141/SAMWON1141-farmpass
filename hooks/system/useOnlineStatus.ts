@@ -47,7 +47,9 @@ export function useOnlineStatus() {
       // 간단한 헬스체크 API 호출
       const response = await fetch("/api/health", {
         method: "GET",
-        cache: "no-cache",
+        headers: {
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+        },
         signal: AbortSignal.timeout(5000), // 5초 타임아웃
       });
 

@@ -2,6 +2,7 @@ import type React from "react";
 import { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
 import { QueryProvider } from "@/components/providers/query-provider";
@@ -10,10 +11,9 @@ import { DebugProvider } from "@/components/providers/debug-provider";
 import { SystemMonitor } from "@/components/common/system-monitor";
 import { ErrorBoundary } from "@/components/error/error-boundary";
 import { ERROR_CONFIGS } from "@/lib/constants/error";
-import { Analytics } from "@vercel/analytics/react";
+
 import { PWAProvider } from "@/components/providers/pwa-provider";
 import { Footer } from "@/components/layout/footer";
-import { GoogleAnalytics } from "@next/third-parties/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -122,7 +122,20 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icon-120x120.png" sizes="120x120" />
         {/* Google Analytics */}
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+              strategy="afterInteractive"
+            />
+            <Script id="gtag-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
+              `}
+            </Script>
+          </>
         )}
       </head>
       <body
@@ -149,7 +162,6 @@ export default function RootLayout({
               </DebugProvider>
             </PWAProvider>
           </QueryProvider>
-          <Analytics />
         </ErrorBoundary>
       </body>
     </html>

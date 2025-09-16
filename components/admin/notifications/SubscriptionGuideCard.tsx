@@ -12,9 +12,9 @@ function SubscriptionGuideCard() {
             <Bell className="h-8 w-8 text-muted-foreground" />
           </div>
           <div className="space-y-2">
-            <h3 className="text-lg font-medium text-muted-foreground">
+            <h2 className="text-lg font-medium text-muted-foreground">
               {LABELS.SUBSCRIPTION_REQUIRED}
-            </h3>
+            </h2>
             <p className="text-sm text-muted-foreground max-w-md mx-auto">
               {LABELS.SUBSCRIPTION_DESCRIPTION}
             </p>

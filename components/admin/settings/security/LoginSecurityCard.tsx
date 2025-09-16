@@ -82,18 +82,27 @@ export default function LoginSecurityCard({
               onChange={(e) =>
                 maxLoginAttempts.handleChange(
                   e,
-                  (value) => onUpdate("maxLoginAttempts", value),
+                  (value) => {
+                    // 값이 실제로 변경되었을 때만 업데이트
+                    if (value !== settings.maxLoginAttempts) {
+                      onUpdate("maxLoginAttempts", value);
+                    }
+                  },
                   setMaxLoginAttemptsDisplay
                 )
               }
               onBlur={(e) =>
                 maxLoginAttempts.handleBlur(
                   e.target.value,
-                  (value) => onUpdate("maxLoginAttempts", value),
+                  (value) => {
+                    // 값이 실제로 변경되었을 때만 업데이트
+                    if (value !== settings.maxLoginAttempts) {
+                      onUpdate("maxLoginAttempts", value);
+                    }
+                  },
                   setMaxLoginAttemptsDisplay
                 )
               }
-              onFocus={maxLoginAttempts.handleFocus}
               disabled={isLoading}
             />
             <p className="text-sm sm:text-base text-muted-foreground">
@@ -116,18 +125,27 @@ export default function LoginSecurityCard({
               onChange={(e) =>
                 accountLockoutDuration.handleChange(
                   e,
-                  (value) => onUpdate("accountLockoutDurationMinutes", value),
+                  (value) => {
+                    // 값이 실제로 변경되었을 때만 업데이트
+                    if (value !== settings.accountLockoutDurationMinutes) {
+                      onUpdate("accountLockoutDurationMinutes", value);
+                    }
+                  },
                   setAccountLockoutDurationDisplay
                 )
               }
               onBlur={(e) =>
                 accountLockoutDuration.handleBlur(
                   e.target.value,
-                  (value) => onUpdate("accountLockoutDurationMinutes", value),
+                  (value) => {
+                    // 값이 실제로 변경되었을 때만 업데이트
+                    if (value !== settings.accountLockoutDurationMinutes) {
+                      onUpdate("accountLockoutDurationMinutes", value);
+                    }
+                  },
                   setAccountLockoutDurationDisplay
                 )
               }
-              onFocus={accountLockoutDuration.handleFocus}
               disabled={isLoading}
             />
             <p className="text-sm sm:text-base text-muted-foreground">

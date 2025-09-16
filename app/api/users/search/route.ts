@@ -200,14 +200,7 @@ export async function GET(request: NextRequest) {
       request
     );
 
-    return NextResponse.json(
-      { users: filteredUsers },
-      {
-        headers: {
-          "Cache-Control": "no-store",
-        },
-      }
-    );
+    return NextResponse.json({ users: filteredUsers }, { status: 200 });
   } catch (error) {
     // 검색 실패 로그 기록
     const errorMessage = error instanceof Error ? error.message : String(error);

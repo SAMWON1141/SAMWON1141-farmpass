@@ -28,8 +28,8 @@ export function BroadcastResult({ lastSendResult }: BroadcastResultProps) {
         <div className="flex items-center gap-2">
           {lastSendResult.success ? (
             <>
-              <CheckCircle className="h-4 w-4 text-green-600" />
-              <span className="text-green-800">
+              <CheckCircle className="h-4 w-4 text-green-700 dark:text-green-200" />
+              <span className="text-green-700 dark:text-green-200">
                 {LABELS.BROADCAST_RESULT_SUCCESS}
               </span>
             </>
@@ -47,7 +47,7 @@ export function BroadcastResult({ lastSendResult }: BroadcastResultProps) {
         </div>
         {lastSendResult.success && (
           <div className="mt-1 text-sm sm:text-base">
-            <span className="text-green-800">
+            <span className="text-green-700 dark:text-green-200">
               {LABELS.BROADCAST_RESULT_SUCCESS_COUNT.replace(
                 "{count}",
                 lastSendResult.sentCount.toString()

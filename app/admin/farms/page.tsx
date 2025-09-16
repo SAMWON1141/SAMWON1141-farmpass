@@ -185,6 +185,7 @@ export default function FarmsPage() {
               <button
                 onClick={() => setSearchTerm("")}
                 className="absolute right-1 sm:right-2 top-1/2 transform -translate-y-1/2 h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 p-0 rounded-full flex items-center justify-center"
+                aria-label="농장 검색 초기화"
               >
                 <X className="h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-4 md:w-4" />
               </button>

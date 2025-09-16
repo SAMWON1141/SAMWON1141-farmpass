@@ -296,13 +296,6 @@ export async function GET() {
       },
       {
         status: 200, // 성공 상태 코드
-        headers: {
-          // 캐시 방지 헤더 (항상 최신 상태 확인)
-          "Cache-Control": "no-cache, no-store, must-revalidate",
-          Pragma: "no-cache",
-          Expires: "0",
-          "Content-Type": "application/json",
-        },
       }
     );
   } catch (error) {

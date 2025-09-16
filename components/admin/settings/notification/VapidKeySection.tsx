@@ -127,6 +127,7 @@ const VapidKeySection = React.memo(function VapidKeySection({
                 className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-muted"
                 onClick={() => handleCopyKey("public")}
                 disabled={!settings.vapidPublicKey}
+                aria-label="공개 키 복사"
               >
                 {copiedKey === "public" ? (
                   <Check className="h-4 w-4 text-green-600" />
@@ -169,6 +170,7 @@ const VapidKeySection = React.memo(function VapidKeySection({
               className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-muted"
               onClick={() => handleCopyKey("private")}
               disabled={!settings.vapidPrivateKey}
+              aria-label="비공개 키 복사"
             >
               {copiedKey === "private" ? (
                 <Check className="h-4 w-4 text-green-600" />

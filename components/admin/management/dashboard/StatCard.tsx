@@ -119,9 +119,9 @@ export function StatCard({
 
         {/* 제목과 설명 */}
         <div className="mt-2">
-          <h3 className="text-sm sm:text-base md:text-lg font-semibold text-slate-900 dark:text-slate-100 transition-colors duration-300">
+          <h2 className="text-sm sm:text-base md:text-lg font-semibold text-slate-900 dark:text-slate-100 transition-colors duration-300">
             {title}
-          </h3>
+          </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1 transition-colors duration-300">
             {description}
           </p>

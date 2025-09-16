@@ -94,8 +94,8 @@ const withSerwist = withSerwistInit({
     { url: "/docs/faq.html", revision },
   ],
 
-  // 최대 캐시 파일 크기 (5MB)
-  maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+  // 최대 캐시 파일 크기 (10MB)
+  maximumFileSizeToCacheInBytes: 10 * 1024 * 1024,
 });
 
 /** @type {import('next').NextConfig} */
@@ -124,17 +124,17 @@ const nextConfig = {
         "samwon1141.com", // FarmPass 도메인 (www 없이)
       ],
     },
-    // 빌드 성능 최적화
+    // 개발 환경에서 더 적극적인 최적화
+    optimizeCss: true,
+    optimizeServerReact: true,
+    // CSS 최적화 강화
+    cssChunking: "strict",
+    // 빌드 성능 최적화 - 번들 크기 최적화를 위한 패키지 최적화
     optimizePackageImports: [
       "lucide-react",
       "@radix-ui/react-icons",
       "@tanstack/react-query",
-      "@tanstack/react-query-devtools",
-      "sharp",
-      "multer",
     ],
-    // React Query 최적화
-    optimizeCss: true,
   },
 
   reactStrictMode: false,
@@ -205,37 +205,105 @@ const nextConfig = {
    * 🚀 React Query + Prisma 최적화
    */
   webpack: (config, { dev, isServer }) => {
-    // 프로덕션 빌드에서 DevTools 제외
     if (!dev && !isServer) {
       config.resolve.alias = {
         ...config.resolve.alias,
-        "@tanstack/react-query-devtools": false,
       };
     }
 
-    // React Query + Prisma 최적화
-    config.optimization = {
-      ...config.optimization,
-      splitChunks: {
-        ...config.optimization.splitChunks,
-        cacheGroups: {
-          ...config.optimization.splitChunks.cacheGroups,
-          reactQuery: {
-            test: /[\\/]node_modules[\\/]@tanstack[\\/]/,
-            name: "react-query",
-            chunks: "all",
-            priority: 10,
-          },
-          // 이미지 처리 최적화
-          imageProcessing: {
-            test: /[\\/]node_modules[\\/](sharp|multer|image-size)[\\/]/,
-            name: "image-processing",
-            chunks: "all",
-            priority: 8,
+    // 개발 환경에서 코드 스플리팅 최적화
+    if (dev) {
+      // 개발 환경에서는 코드 스플리팅을 단순화하여 로딩 속도 향상
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          chunks: "all",
+          cacheGroups: {
+            default: {
+              minChunks: 1,
+              priority: -20,
+              reuseExistingChunk: true,
+            },
           },
         },
-      },
-    };
+      };
+    } else {
+      // 프로덕션 환경에서만 세분화된 코드 스플리팅 적용
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          ...config.optimization.splitChunks,
+          chunks: "all",
+          maxInitialRequests: 20,
+          maxAsyncRequests: 20,
+          cacheGroups: {
+            ...config.optimization.splitChunks.cacheGroups,
+            reactQuery: {
+              test: /[\\/]node_modules[\\/]@tanstack[\\/]/,
+              name: "react-query",
+              chunks: "all",
+              priority: 20,
+              reuseExistingChunk: true,
+            },
+            // React 라이브러리 세분화
+            react: {
+              test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+              name: "react",
+              chunks: "all",
+              priority: 25,
+              reuseExistingChunk: true,
+            },
+            // Radix UI 컴포넌트 세분화 최적화
+            radixUI: {
+              test: /[\\/]node_modules[\\/]@radix-ui[\\/]/,
+              name: "radix-ui",
+              chunks: "all",
+              priority: 15,
+              reuseExistingChunk: true,
+            },
+            // Radix UI 개별 컴포넌트 최적화
+            radixUIComponents: {
+              test: /[\\/]node_modules[\\/]@radix-ui\/react-(dialog|dropdown-menu|select|tabs|toast|tooltip|popover|sheet)[\\/]/,
+              name: "radix-ui-components",
+              chunks: "all",
+              priority: 14,
+              reuseExistingChunk: true,
+            },
+            // 차트 라이브러리 최적화
+            charts: {
+              test: /[\\/]node_modules[\\/](chart\.js|react-chartjs-2)[\\/]/,
+              name: "charts",
+              chunks: "all",
+              priority: 12,
+              reuseExistingChunk: true,
+            },
+            // 애니메이션 라이브러리 최적화
+            animations: {
+              test: /[\\/]node_modules[\\/](lottie-react|framer-motion)[\\/]/,
+              name: "animations",
+              chunks: "all",
+              priority: 11,
+              reuseExistingChunk: true,
+            },
+            // 폼 라이브러리 최적화
+            forms: {
+              test: /[\\/]node_modules[\\/](react-hook-form|@hookform|zod)[\\/]/,
+              name: "forms",
+              chunks: "all",
+              priority: 10,
+            },
+            // 이미지 처리 최적화
+            imageProcessing: {
+              test: /[\\/]node_modules[\\/](sharp|multer|image-size)[\\/]/,
+              name: "image-processing",
+              chunks: "all",
+              priority: 8,
+              reuseExistingChunk: true,
+            },
+          },
+        },
+      };
+    }
 
     return config;
   },

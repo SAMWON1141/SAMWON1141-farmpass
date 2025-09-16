@@ -113,6 +113,7 @@ export function PrivacySection({ userId }: PrivacySectionProps) {
               onCheckedChange={handleMarketingConsentChange}
               disabled={isLoading}
               className="ml-auto"
+              aria-label="마케팅 정보 수신 동의"
             />
           </div>
         </CardContent>
@@ -122,7 +123,7 @@ export function PrivacySection({ userId }: PrivacySectionProps) {
       <Card>
         <CardHeader>
           <CardTitle className="text-base flex items-center gap-2">
-            <Shield className="h-5 w-5 text-green-600" />
+            <Shield className="h-5 w-5 text-green-700 dark:text-green-400" />
             {PAGE_HEADER.PRIVACY_STATUS_TITLE}
           </CardTitle>
 
@@ -162,7 +163,7 @@ export function PrivacySection({ userId }: PrivacySectionProps) {
                     </p>
                   </div>
                   <div className="text-sm">
-                    <span className="text-green-600 font-medium">
+                    <span className="text-green-700 dark:text-green-400 font-medium">
                       {LABELS.CONSENT_AGREED}
                     </span>
                   </div>

@@ -70,18 +70,27 @@ export default function PasswordPolicyCard({
               onChange={(e) =>
                 passwordMinLength.handleChange(
                   e,
-                  (value) => onUpdate("passwordMinLength", value),
+                  (value) => {
+                    // 값이 실제로 변경되었을 때만 업데이트
+                    if (value !== settings.passwordMinLength) {
+                      onUpdate("passwordMinLength", value);
+                    }
+                  },
                   setPasswordMinLengthDisplay
                 )
               }
               onBlur={(e) =>
                 passwordMinLength.handleBlur(
                   e.target.value,
-                  (value) => onUpdate("passwordMinLength", value),
+                  (value) => {
+                    // 값이 실제로 변경되었을 때만 업데이트
+                    if (value !== settings.passwordMinLength) {
+                      onUpdate("passwordMinLength", value);
+                    }
+                  },
                   setPasswordMinLengthDisplay
                 )
               }
-              onFocus={passwordMinLength.handleFocus}
               disabled={isLoading}
             />
             <p className="text-sm sm:text-base text-muted-foreground">

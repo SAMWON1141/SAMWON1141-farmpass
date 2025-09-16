@@ -236,12 +236,7 @@ export async function POST(
           role === "manager" ? "관리자" : "조회자"
         }로 추가되었습니다.`,
       },
-      {
-        status: 201,
-        headers: {
-          "Cache-Control": "no-store",
-        },
-      }
+      { status: 201 }
     );
   } catch (error) {
     // 농장 멤버 추가 실패 로그 기록

@@ -54,6 +54,7 @@ export function CommonFilters({
                 } as React.ChangeEvent<HTMLInputElement>)
               }
               className="absolute right-1 sm:right-2 top-1/2 transform -translate-y-1/2 w-7 p-0 rounded-full flex items-center justify-center"
+              aria-label="검색어 지우기"
             >
               <X className="h-4 w-4" />
             </button>
@@ -70,6 +71,7 @@ export function CommonFilters({
                 select.className ||
                 "sm:w-auto sm:min-w-[120px] lg:min-w-[140px] xl:min-w-[160px]"
               }
+              aria-label={select.placeholder}
             >
               <SelectValue placeholder={select.placeholder} />
             </SelectTrigger>

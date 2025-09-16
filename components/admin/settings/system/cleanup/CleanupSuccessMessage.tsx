@@ -23,7 +23,7 @@ export function CleanupSuccessMessage({
             {LABELS.CLEANUP_SUCCESS_TITLE.replace("{type}", lastCleanupSuccess)}
           </p>
         </div>
-        <p className="text-sm sm:text-base text-green-600 mt-1">
+        <p className="text-sm sm:text-base text-green-700 dark:text-green-200 mt-1">
           {LABELS.CLEANUP_SUCCESS_DESC}
         </p>
       </div>
@@ -43,7 +43,7 @@ export function CleanupSuccessMessage({
             {LABELS.CLEANUP_ALL_CLEANED_TITLE}
           </p>
         </div>
-        <p className="text-sm sm:text-base text-green-600 mt-1">
+        <p className="text-sm sm:text-base text-green-700 dark:text-green-200 mt-1">
           {LABELS.CLEANUP_ALL_CLEANED_DESC}
         </p>
       </div>

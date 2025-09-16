@@ -49,7 +49,7 @@ const createStatConfig = (
     color: "from-blue-500 to-blue-600",
     bgColor: "bg-blue-50",
     borderColor: "border-blue-200",
-    textColor: "text-blue-700",
+    textColor: "text-blue-800",
     iconBg: "bg-blue-100",
     description: LABELS.VISITOR_STATS_TOTAL_VISITORS_DESC,
     trend:
@@ -62,7 +62,7 @@ const createStatConfig = (
     color: "from-emerald-500 to-emerald-600",
     bgColor: "bg-emerald-50",
     borderColor: "border-emerald-200",
-    textColor: "text-emerald-700",
+    textColor: "text-emerald-800",
     iconBg: "bg-emerald-100",
     description: LABELS.VISITOR_STATS_TODAY_VISITORS_DESC,
     trend:
@@ -88,7 +88,7 @@ export function VisitorStats({
       color: "from-purple-500 to-purple-600",
       bgColor: "bg-purple-50",
       borderColor: "border-purple-200",
-      textColor: "text-purple-700",
+      textColor: "text-purple-800",
       iconBg: "bg-purple-100",
       description: LABELS.VISITOR_STATS_REGISTERED_FARMS_DESC,
       trend:
@@ -107,7 +107,7 @@ export function VisitorStats({
       color: "from-orange-500 to-orange-600",
       bgColor: "bg-orange-50",
       borderColor: "border-orange-200",
-      textColor: "text-orange-700",
+      textColor: "text-orange-800",
       iconBg: "bg-orange-100",
       description: LABELS.VISITOR_STATS_DISINFECTION_RATE_DESC,
       trend:
@@ -125,7 +125,7 @@ export function VisitorStats({
       color: "from-pink-500 to-pink-600",
       bgColor: "bg-pink-50",
       borderColor: "border-pink-200",
-      textColor: "text-pink-700",
+      textColor: "text-pink-800",
       iconBg: "bg-pink-100",
       description: topPurpose.purpose,
       trend: `${topPurpose.percentage.toFixed(1)}%`,

@@ -11,7 +11,6 @@ import { createVisitorFormSchema } from "@/lib/utils/validation/visitor-validati
 
 // 레이아웃 컴포넌트
 import { FormCard } from "./form-layout/FormCard";
-import { FormHeader } from "./form-layout/FormHeader";
 import { FormFooter } from "./form-layout/FormFooter";
 
 // 섹션 컴포넌트
@@ -77,7 +76,6 @@ export const VisitorForm = ({
 
   return (
     <FormCard>
-      <FormHeader />
       <CardContent className="p-3 sm:p-6 w-full">
         {/* 이미지 섹션 */}
         <ImageSection

@@ -18,7 +18,7 @@ interface SystemStatusCardProps {
 
 export function SystemStatusCard({ data }: SystemStatusCardProps) {
   // 데이터 유효성 검사
-  if (!data?.health) {
+  if (!data) {
     return (
       <Card className="bg-gradient-to-br from-background to-muted/20">
         <CardHeader>
@@ -37,7 +37,7 @@ export function SystemStatusCard({ data }: SystemStatusCardProps) {
     );
   }
 
-  const health = data.health;
+  const health = data;
 
   // CPU와 메모리 상태 데이터 유효성 검사
   const cpuStatus = health.system?.cpu?.status ?? "unknown";
@@ -125,6 +125,7 @@ export function SystemStatusCard({ data }: SystemStatusCardProps) {
               <Progress
                 value={cpuTotal}
                 className={cn("h-2", getProgressColor(cpuTotal))}
+                aria-label={`CPU 사용률: ${cpuTotal}%`}
               />
               <div className="flex justify-between text-xs text-muted-foreground">
                 <span>
@@ -155,6 +156,7 @@ export function SystemStatusCard({ data }: SystemStatusCardProps) {
               <Progress
                 value={memoryUsagePercent}
                 className={cn("h-2", getProgressColor(memoryUsagePercent))}
+                aria-label={`메모리 사용률: ${memoryUsagePercent}%`}
               />
               <div className="flex justify-between text-xs text-muted-foreground">
                 <span>
