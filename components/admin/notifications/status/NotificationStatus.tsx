@@ -35,9 +35,9 @@ export const UnsupportedStatus = () => (
         <span className="text-xs text-destructive-foreground">!</span>
       </div>
     </div>
-    <h3 className="text-lg sm:text-xl font-semibold mb-2">
+    <div className="text-lg sm:text-xl font-semibold mb-2">
       {LABELS.UNSUPPORTED_TITLE}
-    </h3>
+    </div>
     <p className="text-sm sm:text-base text-muted-foreground mb-4 max-w-sm mx-auto">
       {LABELS.UNSUPPORTED_DESCRIPTION}
       <br />
@@ -66,9 +66,9 @@ export const DeniedStatus = ({ onAllow }: StatusProps) => (
         <span className="text-xs text-destructive-foreground">×</span>
       </div>
     </div>
-    <h3 className="text-lg sm:text-xl font-semibold mb-2">
+    <div className="text-lg sm:text-xl font-semibold mb-2">
       {LABELS.PERMISSION_NEEDED}
-    </h3>
+    </div>
     <p className="text-sm sm:text-base text-muted-foreground mb-6 max-w-sm mx-auto">
       {LABELS.PERMISSION_DENIED}
       <br />
@@ -94,9 +94,9 @@ export const GrantedStatus = ({ isLoading, onAllow }: StatusProps) => (
           <CheckCircle className="h-3 w-3 text-white" />
         </div>
       </div>
-      <h3 className="text-lg sm:text-xl font-semibold mb-2">
+      <div className="text-lg sm:text-xl font-semibold mb-2">
         {LABELS.PUSH_READY}
-      </h3>
+      </div>
       <p className="text-sm sm:text-base text-muted-foreground mb-6 max-w-sm mx-auto">
         {LABELS.PUSH_READY_DESC}
         <br />

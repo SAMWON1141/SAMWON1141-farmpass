@@ -118,6 +118,7 @@ export function UserList({ users }: UserListProps) {
                         size="icon"
                         className="h-10 w-10 sm:h-12 sm:w-12 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 flex-shrink-0"
                         onClick={() => setSelectedUser(user)}
+                        aria-label={`${user.name} 상세보기`}
                       >
                         <Eye className="h-5 w-5 sm:h-6 sm:w-6 text-muted-foreground" />
                       </Button>

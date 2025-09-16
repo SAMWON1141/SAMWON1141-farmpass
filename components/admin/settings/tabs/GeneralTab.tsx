@@ -12,14 +12,17 @@ import {
 
 interface GeneralTabProps {
   settings: SystemSettings;
-  onSettingChange: (key: keyof SystemSettings, value: any) => void;
-  loading?: boolean;
+  onUpdate: <K extends keyof SystemSettings>(
+    key: K,
+    value: SystemSettings[K]
+  ) => void;
+  isLoading: boolean;
 }
 
 export default function GeneralTab({
   settings,
-  onSettingChange,
-  loading,
+  onUpdate,
+  isLoading,
 }: GeneralTabProps) {
   return (
     <ErrorBoundary
@@ -34,20 +37,20 @@ export default function GeneralTab({
       >
         <BrandingSection
           settings={settings}
-          onSettingChange={onSettingChange}
-          loading={loading}
+          onSettingChange={onUpdate}
+          loading={isLoading}
         />
 
         <LocalizationSection
           settings={settings}
-          onSettingChange={onSettingChange}
-          loading={loading}
+          onSettingChange={onUpdate}
+          loading={isLoading}
         />
 
         <DisplayFormatSection
           settings={settings}
-          onSettingChange={onSettingChange}
-          loading={loading}
+          onSettingChange={onUpdate}
+          loading={isLoading}
         />
       </motion.div>
     </ErrorBoundary>

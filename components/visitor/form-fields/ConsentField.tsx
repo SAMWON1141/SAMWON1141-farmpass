@@ -70,6 +70,7 @@ export const ConsentField = <T extends FieldValues = any>({
                       e.stopPropagation(); // 🔥 이벤트 전파 중단
                       setModalOpen(true);
                     }}
+                    aria-label="개인정보 수집 및 이용 동의서 상세보기"
                   >
                     <ExternalLink className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   </Button>

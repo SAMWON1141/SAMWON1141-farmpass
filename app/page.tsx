@@ -12,9 +12,36 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { features, steps } from "./home-data";
-import { Logo } from "@/components/common/logo";
 import { useSystemSettingsQuery } from "@/lib/hooks/query/use-system-settings-query";
-import { PageLoading } from "@/components/ui/loading";
+import dynamic from "next/dynamic";
+
+// 무거운 컴포넌트들을 동적 import로 최적화
+const Logo = dynamic(
+  () =>
+    import("@/components/common/logo").then((mod) => ({ default: mod.Logo })),
+  {
+    ssr: false,
+    loading: () => <div className="w-32 h-32 bg-muted animate-pulse rounded" />,
+  }
+);
+
+const PageLoading = dynamic(
+  () =>
+    import("@/components/ui/loading").then((mod) => ({
+      default: mod.PageLoading,
+    })),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-farm">
+        <div className="text-center">
+          <div className="w-16 h-16 bg-white/20 animate-pulse rounded-full mx-auto mb-4"></div>
+          <p className="text-white/80">로딩 중...</p>
+        </div>
+      </div>
+    ),
+  }
+);
 
 // 클라이언트 컴포넌트로 변경
 export default function HomePage() {
@@ -52,7 +79,7 @@ export default function HomePage() {
         <div className="container relative z-10 mx-auto px-4">
           <div className="text-center animate-fade-in">
             <div className="mx-auto mb-6 flex justify-center">
-              <Logo size="xxl" />
+              <Logo size="xxl" settings={settings} />
             </div>
             <h1 className="mb-4 text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
               {displaySettings.siteName}
@@ -104,7 +131,7 @@ export default function HomePage() {
                 className="animate-fade-in-up"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <Card className="card-hover h-full border-none bg-card/50 backdrop-blur-sm">
+                <Card className="h-full border-none bg-card/50 backdrop-blur-sm">
                   <CardHeader>
                     <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
                       <feature.icon className="h-6 w-6 text-primary" />
@@ -129,7 +156,7 @@ export default function HomePage() {
             <h2 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">
               3단계로 시작하는 방문자 관리
             </h2>
-            <p className="mx-auto max-w-2xl text-muted-foreground">
+            <p className="mx-auto max-w-2xl text-foreground/80">
               복잡한 설정 없이 빠르게 시작하고 효율적으로 관리하세요
             </p>
           </div>
@@ -148,8 +175,8 @@ export default function HomePage() {
                   <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-2xl font-bold text-primary-foreground">
                     {index + 1}
                   </div>
-                  <h3 className="mb-2 text-xl font-semibold">{step.title}</h3>
-                  <p className="text-muted-foreground">{step.description}</p>
+                  <div className="mb-2 text-xl font-semibold">{step.title}</div>
+                  <p className="text-foreground/70">{step.description}</p>
                 </div>
               </div>
             ))}

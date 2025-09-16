@@ -1,8 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Lottie from "lottie-react";
+import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
+
+// Lottie 라이브러리를 동적 import로 최적화
+const Lottie = dynamic(() => import("lottie-react"), {
+  ssr: false,
+  loading: () => <div className="w-16 h-16 bg-muted animate-pulse rounded" />,
+});
 
 interface LottieLoadingProps {
   text?: string;

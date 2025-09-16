@@ -45,7 +45,7 @@ export function InsightCard({
                 dailyAverage.toString()
               ),
         bgColor: "bg-blue-100 dark:bg-blue-800/50",
-        textColor: "text-blue-600 dark:text-blue-300",
+        textColor: "text-blue-800 dark:text-blue-200",
       },
       {
         icon: Zap,
@@ -58,7 +58,7 @@ export function InsightCard({
                 activityIndex.toString()
               ),
         bgColor: "bg-emerald-100 dark:bg-emerald-800/50",
-        textColor: "text-emerald-600 dark:text-emerald-300",
+        textColor: "text-emerald-800 dark:text-emerald-200",
       },
     ];
 
@@ -72,7 +72,7 @@ export function InsightCard({
           avgPerFarm.toString()
         ),
         bgColor: "bg-purple-100 dark:bg-purple-800/50",
-        textColor: "text-purple-600 dark:text-purple-300",
+        textColor: "text-purple-800 dark:text-purple-200",
       });
     }
 
@@ -89,10 +89,10 @@ export function InsightCard({
             <BarChart3 className="h-4 w-4 sm:h-5 sm:w-5 text-amber-700 dark:text-amber-300" />
           </div>
           <div>
-            <h3 className="text-sm sm:text-base md:text-lg font-semibold text-amber-800 dark:text-amber-200">
+            <div className="text-sm sm:text-base md:text-lg font-semibold text-amber-900 dark:text-amber-100">
               {LABELS.INSIGHT_CARD_TITLE}
-            </h3>
-            <p className="text-xs sm:text-sm md:text-base text-amber-600 dark:text-amber-400">
+            </div>
+            <p className="text-xs sm:text-sm md:text-base text-amber-700 dark:text-amber-300">
               {LABELS.INSIGHT_CARD_SUBTITLE}
             </p>
           </div>
@@ -115,7 +115,7 @@ export function InsightCard({
                   >
                     {insight.label}
                   </p>
-                  <p className="text-xs sm:text-sm md:text-base text-amber-600 dark:text-amber-300 font-semibold">
+                  <p className="text-xs sm:text-sm md:text-base text-amber-800 dark:text-amber-200 font-semibold">
                     {insight.value}
                   </p>
                 </div>

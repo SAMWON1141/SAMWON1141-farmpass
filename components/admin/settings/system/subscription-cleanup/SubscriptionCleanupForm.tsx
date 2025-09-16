@@ -46,7 +46,7 @@ export function SubscriptionCleanupForm({
           }
           disabled={isLoading}
         >
-          <SelectTrigger>
+          <SelectTrigger aria-label="구독 정리 일수 선택">
             <SelectValue placeholder={PLACEHOLDERS.SUBSCRIPTION_CLEANUP_DAYS} />
           </SelectTrigger>
           <SelectContent>
@@ -74,7 +74,7 @@ export function SubscriptionCleanupForm({
           }
           disabled={isLoading}
         >
-          <SelectTrigger>
+          <SelectTrigger aria-label="구독 실패 횟수 임계값 선택">
             <SelectValue
               placeholder={PLACEHOLDERS.SUBSCRIPTION_FAIL_COUNT_THRESHOLD}
             />
@@ -102,6 +102,7 @@ export function SubscriptionCleanupForm({
             onUpdate("subscriptionCleanupInactive", checked)
           }
           disabled={isLoading}
+          aria-label="비활성 구독 정리 설정"
         />
       </div>
 
@@ -118,6 +119,7 @@ export function SubscriptionCleanupForm({
             onUpdate("subscriptionForceDelete", checked)
           }
           disabled={isLoading}
+          aria-label="구독 강제 삭제 설정"
         />
       </div>
     </div>

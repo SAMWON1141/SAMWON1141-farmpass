@@ -1,3 +1,4 @@
+import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import type { UserNotificationSetting } from "@/lib/types/common";
@@ -13,7 +14,7 @@ interface NotificationTypesCardProps {
   ) => void;
 }
 
-export function NotificationTypesCard({
+const NotificationTypesCard = React.memo(function NotificationTypesCard({
   settings,
   onSettingChange,
 }: NotificationTypesCardProps) {
@@ -46,6 +47,7 @@ export function NotificationTypesCard({
                 checked={Boolean(settings?.[type.key])}
                 onCheckedChange={(checked) => handleToggle(type.key, checked)}
                 className="ml-auto"
+                aria-label={`${type.label} 알림 토글`}
               />
             </div>
           ))}
@@ -53,4 +55,6 @@ export function NotificationTypesCard({
       </CardContent>
     </Card>
   );
-}
+});
+
+export { NotificationTypesCard };

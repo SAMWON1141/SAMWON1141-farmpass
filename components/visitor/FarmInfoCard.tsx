@@ -16,7 +16,7 @@ interface FarmInfoCardProps {
 
 export const FarmInfoCard = ({ farm }: FarmInfoCardProps) => {
   return (
-    <Card className="mb-1.5 sm:mb-6 shadow-lg rounded-lg sm:rounded-2xl border border-gray-200 bg-white/90 max-w-lg mx-auto">
+    <Card className="mb-2 shadow-lg rounded-lg sm:rounded-2xl border border-gray-200 bg-white/90 max-w-lg mx-auto">
       <CardHeader className="pb-1 sm:pb-3 border-b border-gray-100 px-3 sm:px-6 pt-2 sm:pt-6">
         <div className="flex items-center gap-1.5 sm:gap-3 mb-1 sm:mb-2">
           <Sprout className="h-4 sm:h-7 w-4 sm:w-7 text-green-600 flex-shrink-0" />

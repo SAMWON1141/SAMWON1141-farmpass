@@ -37,7 +37,7 @@ export function SubscriptionCleanupSuccessMessage({
             {LABELS.SUBSCRIPTION_CLEANUP_ALL_VALID_TITLE}
           </p>
         </div>
-        <p className="text-sm sm:text-base text-green-600 mt-1">
+        <p className="text-sm sm:text-base text-green-700 dark:text-green-200 mt-1">
           {LABELS.SUBSCRIPTION_CLEANUP_ALL_VALID_DESC.replace(
             "{count}",
             (totalChecked || 0).toString()
@@ -55,7 +55,7 @@ export function SubscriptionCleanupSuccessMessage({
           {LABELS.SUBSCRIPTION_CLEANUP_SUCCESS_TITLE}
         </p>
       </div>
-      <div className="text-sm sm:text-base text-green-600 mt-2 space-y-1">
+      <div className="text-sm sm:text-base text-green-700 dark:text-green-200 mt-2 space-y-1">
         <p>
           {LABELS.SUBSCRIPTION_CLEANUP_SUCCESS_DESC.replace(
             "{count}",

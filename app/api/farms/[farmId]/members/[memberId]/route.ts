@@ -207,11 +207,7 @@ export async function PUT(
           role: role,
         },
       },
-      {
-        headers: {
-          "Cache-Control": "no-store",
-        },
-      }
+      { status: 200 }
     );
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
@@ -434,11 +430,7 @@ export async function DELETE(
         } 역할에서 제거되었습니다.`,
         removedMember: memberToRemove,
       },
-      {
-        headers: {
-          "Cache-Control": "no-store",
-        },
-      }
+      { status: 200 }
     );
   } catch (error) {
     // 농장 멤버 제거 실패 로그 기록

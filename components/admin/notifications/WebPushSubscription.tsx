@@ -30,7 +30,7 @@ export function WebPushSubscription() {
     getSubscriptionStatus,
     lastMessage,
     clearLastMessage,
-  } = useNotificationService(); // Lazy Loading으로 최적화
+  } = useNotificationService();
   const { showInfo, showWarning, showSuccess, showError } = useCommonToast();
 
   useEffect(() => {

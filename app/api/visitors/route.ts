@@ -186,9 +186,9 @@ export async function GET(request: NextRequest) {
     const responseData = { visitors: visitorData || [] };
 
     return NextResponse.json(responseData, {
+      status: 200,
       headers: {
         ...createRateLimitHeaders(rateLimitResult),
-        "Cache-Control": "no-store",
       },
     });
   } catch (error) {

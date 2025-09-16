@@ -54,18 +54,12 @@ export async function GET(request: NextRequest) {
           created_at: null,
           updated_at: null,
         },
-        {
-          headers: {
-            "Cache-Control": "no-store",
-          },
-        }
+        { status: 200 }
       );
     }
 
     return NextResponse.json(settings, {
-      headers: {
-        "Cache-Control": "no-store",
-      },
+      status: 200,
     });
   } catch (error) {
     // 시스템 예외 로그

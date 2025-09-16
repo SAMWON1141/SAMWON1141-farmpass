@@ -52,10 +52,7 @@ export async function GET(
       });
     }
 
-    return NextResponse.json(
-      { farm },
-      { headers: { "Cache-Control": "no-store" } }
-    );
+    return NextResponse.json({ farm }, { status: 200 });
   } catch (error) {
     // 비즈니스 에러 또는 시스템 에러를 표준화된 에러 코드로 매핑
     const result = getErrorResultFromRawError(error, {
@@ -227,7 +224,7 @@ export async function PUT(
         success: true,
         message: `${farm.farm_name}의 정보가 수정되었습니다.`,
       },
-      { headers: { "Cache-Control": "no-store" } }
+      { status: 200 }
     );
   } catch (error) {
     // 농장 수정 실패 로그 기록
@@ -370,7 +367,9 @@ export async function DELETE(
         success: true,
         message: `${farm.farm_name} 농장이 삭제되었습니다.`,
       },
-      { status: 200, headers: { "Cache-Control": "no-store" } }
+      {
+        status: 200,
+      }
     );
   } catch (error) {
     // 농장 삭제 실패 로그 기록

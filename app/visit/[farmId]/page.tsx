@@ -32,6 +32,7 @@ import useBlockNavigation from "@/hooks/ui/use-before-unload";
 import { useRouter } from "next/navigation";
 import { ConfirmSheet } from "@/components/ui/confirm-sheet";
 import { LABELS } from "@/lib/constants/visitor";
+import { FormHeader } from "@/components/visitor/form-layout/FormHeader";
 import type { VisitorSettings } from "@/lib/types/visitor";
 
 /**
@@ -211,6 +212,7 @@ export default function VisitPage() {
       description={ERROR_CONFIGS.LOADING.description}
     >
       <div className="min-h-screen items-center justify-center bg-gradient-farm p-3">
+        <FormHeader />
         <FarmInfoCard farm={farm} />
         <VisitorForm
           settings={settings}

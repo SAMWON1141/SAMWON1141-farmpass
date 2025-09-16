@@ -21,63 +21,75 @@ export interface ErrorLog {
   message: string;
 }
 
-// SystemStatusCard 타입
+// SystemStatusCard 타입 - /api/health 응답 구조에 맞게 수정
 export interface SystemStatusData {
+  status: string;
   timestamp: string;
-  health: {
-    status: string;
-    timestamp: string;
-    uptime: number;
-    responseTime: string;
-    version: string;
-    performance: {
-      totalResponseTime: string;
-      databaseResponseTime: string;
-      cpu: {
-        user: number;
-        system: number;
-        total: number;
-      };
+  uptime: number;
+  responseTime: string;
+  version: string;
+  performance: {
+    totalResponseTime: string;
+    databaseResponseTime: string;
+    cpu: {
+      user: string;
+      system: string;
+      total: string;
     };
-    system: {
-      farmCount: number;
-      visitorCount: number;
-      memory: {
-        used: number;
-        total: number;
-        external: number;
-        status: string;
-      };
-      cpu: {
-        user: number;
-        system: number;
-        total: number;
-        threshold: number;
-        status: string;
-      };
-      nodeVersion: string;
-      platform: string;
-      arch: string;
-      techStack?: {
-        framework?: string;
-        runtime?: string;
-        react?: string;
-        typescript?: string;
+  };
+  system: {
+    farmCount: number;
+    visitorCount: number;
+    memory: {
+      used: number;
+      total: number;
+      external: number;
+      status: string;
+    };
+    cpu: {
+      user: number;
+      system: number;
+      total: number;
+      threshold: number;
+      status: string;
+    };
+    nodeVersion: string;
+    platform: string;
+    arch: string;
+    techStack?: {
+      framework?: string;
+      runtime?: string;
+      react?: string;
+      typescript?: string;
+      database?: string;
+      authentication?: string;
+      deployment?: string;
+      ui?: string;
+      state?: string;
+      pwa?: string;
+      pushNotifications?: string;
+      monitoring?: string;
+      analytics?: string;
+    };
+  };
+  services: {
+    database: string;
+    api: string;
+    memory: string;
+  };
+  monitoring?: {
+    supported?: string[];
+    checkInterval?: string;
+    expectedStatus?: number;
+    timeout?: string;
+    uptimerobot?: {
+      status?: string;
+      message?: string;
+      checks?: {
         database?: string;
-        authentication?: string;
-        deployment?: string;
-        ui?: string;
-        state?: string;
-        pwa?: string;
-        pushNotifications?: string;
-        monitoring?: string;
-        analytics?: string;
+        memory?: string;
+        api?: string;
       };
-    };
-    services: {
-      database: string;
-      api: string;
-      memory: string;
     };
   };
 }

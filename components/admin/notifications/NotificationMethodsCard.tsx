@@ -1,3 +1,4 @@
+import React from "react";
 import { Bell } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import NotificationCardHeader from "./NotificationCardHeader";
@@ -32,7 +33,7 @@ interface NotificationMethodsCardProps {
   ) => void;
 }
 
-export function NotificationMethodsCard({
+const NotificationMethodsCard = React.memo(function NotificationMethodsCard({
   settings,
   onSettingChange,
 }: NotificationMethodsCardProps) {
@@ -70,4 +71,6 @@ export function NotificationMethodsCard({
       </CardContent>
     </Card>
   );
-}
+});
+
+export { NotificationMethodsCard };

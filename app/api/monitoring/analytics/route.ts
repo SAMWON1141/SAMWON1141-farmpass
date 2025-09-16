@@ -8,6 +8,8 @@ import {
   makeErrorResponseFromResult,
 } from "@/lib/utils/error/errorUtil";
 
+export const dynamic = "force-dynamic";
+
 // Google Analytics(GA4) 데이터 패치
 async function fetchAnalyticsData() {
   const gaServiceAccountKey = process.env.GA_SERVICE_ACCOUNT_KEY;

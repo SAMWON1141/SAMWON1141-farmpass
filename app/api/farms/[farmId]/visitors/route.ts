@@ -453,12 +453,7 @@ export async function POST(
         message: "방문자 등록이 완료되었습니다.",
         visitor,
       },
-      {
-        status: 201,
-        headers: {
-          "Cache-Control": "no-store",
-        },
-      }
+      { status: 201 }
     );
   } catch (error) {
     // 방문자 등록 실패 로그 생성

@@ -110,7 +110,7 @@ export function PasswordStrength({ password }: PasswordStrengthProps) {
     if (strength <= 40) return "text-orange-600";
     if (strength <= 60) return "text-yellow-600";
     if (strength <= 80) return "text-blue-600";
-    return "text-green-600";
+    return "text-green-700 dark:text-green-400";
   };
 
   const getStrengthText = () => {
@@ -179,6 +179,7 @@ export function PasswordStrength({ password }: PasswordStrengthProps) {
       <Progress
         value={getStrengthPercentage()}
         className={getStrengthColor()}
+        aria-label={`비밀번호 강도: ${getStrengthPercentage()}%`}
       />
     </div>
   );

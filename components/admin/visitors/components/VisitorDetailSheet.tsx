@@ -186,7 +186,7 @@ export function VisitorDetailSheet({
               <div className="flex items-center space-x-2 sm:space-x-3 p-2 sm:p-3 bg-white/80 dark:bg-slate-800/60 rounded-lg border border-green-100 dark:border-green-800/60">
                 <StatusBadge isCompleted={visitor.disinfection_check} />
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs sm:text-sm text-green-600 dark:text-green-400 font-medium">
+                  <p className="text-xs sm:text-sm text-green-700 dark:text-green-400 font-medium">
                     {LABELS.VISITOR_DETAIL_DISINFECTION_STATUS}
                   </p>
                   <p className="text-sm sm:text-base font-bold text-green-800 dark:text-green-200">
@@ -210,7 +210,7 @@ export function VisitorDetailSheet({
                     : LABELS.VISITOR_DETAIL_CONSENT_INCOMPLETED}
                 </Badge>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs sm:text-sm text-green-600 dark:text-green-400 font-medium">
+                  <p className="text-xs sm:text-sm text-green-700 dark:text-green-400 font-medium">
                     {LABELS.VISITOR_DETAIL_CONSENT}
                   </p>
                   <p className="text-sm sm:text-base font-bold text-green-800 dark:text-green-200">

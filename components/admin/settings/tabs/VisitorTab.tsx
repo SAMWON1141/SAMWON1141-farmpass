@@ -89,14 +89,24 @@ export default function VisitorTab({
               onChange={(e) =>
                 reVisitAllowInterval.handleChange(
                   e,
-                  (value) => onUpdate("reVisitAllowInterval", value),
+                  (value) => {
+                    // 값이 실제로 변경되었을 때만 업데이트
+                    if (value !== (settings.reVisitAllowInterval ?? 0)) {
+                      onUpdate("reVisitAllowInterval", value);
+                    }
+                  },
                   setReVisitAllowIntervalDisplay
                 )
               }
               onBlur={(e) =>
                 reVisitAllowInterval.handleBlur(
                   e.target.value,
-                  (value) => onUpdate("reVisitAllowInterval", value),
+                  (value) => {
+                    // 값이 실제로 변경되었을 때만 업데이트
+                    if (value !== (settings.reVisitAllowInterval ?? 0)) {
+                      onUpdate("reVisitAllowInterval", value);
+                    }
+                  },
                   setReVisitAllowIntervalDisplay
                 )
               }
@@ -120,14 +130,24 @@ export default function VisitorTab({
               onChange={(e) =>
                 maxVisitorsPerDay.handleChange(
                   e,
-                  (value) => onUpdate("maxVisitorsPerDay", value),
+                  (value) => {
+                    // 값이 실제로 변경되었을 때만 업데이트
+                    if (value !== (settings.maxVisitorsPerDay ?? 0)) {
+                      onUpdate("maxVisitorsPerDay", value);
+                    }
+                  },
                   setMaxVisitorsPerDayDisplay
                 )
               }
               onBlur={(e) =>
                 maxVisitorsPerDay.handleBlur(
                   e.target.value,
-                  (value) => onUpdate("maxVisitorsPerDay", value),
+                  (value) => {
+                    // 값이 실제로 변경되었을 때만 업데이트
+                    if (value !== (settings.maxVisitorsPerDay ?? 0)) {
+                      onUpdate("maxVisitorsPerDay", value);
+                    }
+                  },
                   setMaxVisitorsPerDayDisplay
                 )
               }
@@ -151,14 +171,24 @@ export default function VisitorTab({
               onChange={(e) =>
                 visitorDataRetentionDays.handleChange(
                   e,
-                  (value) => onUpdate("visitorDataRetentionDays", value),
+                  (value) => {
+                    // 값이 실제로 변경되었을 때만 업데이트
+                    if (value !== (settings.visitorDataRetentionDays ?? 0)) {
+                      onUpdate("visitorDataRetentionDays", value);
+                    }
+                  },
                   setVisitorDataRetentionDaysDisplay
                 )
               }
               onBlur={(e) =>
                 visitorDataRetentionDays.handleBlur(
                   e.target.value,
-                  (value) => onUpdate("visitorDataRetentionDays", value),
+                  (value) => {
+                    // 값이 실제로 변경되었을 때만 업데이트
+                    if (value !== (settings.visitorDataRetentionDays ?? 0)) {
+                      onUpdate("visitorDataRetentionDays", value);
+                    }
+                  },
                   setVisitorDataRetentionDaysDisplay
                 )
               }

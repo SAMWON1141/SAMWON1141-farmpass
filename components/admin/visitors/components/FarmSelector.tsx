@@ -96,7 +96,10 @@ export function FarmSelector({
           <div className="flex flex-col lg:flex-row items-start lg:items-center gap-3 sm:gap-4">
             <div className="flex-1 w-full lg:w-auto">
               <Select value={selectedFarmId} onValueChange={onFarmChange}>
-                <SelectTrigger className="h-9 sm:h-10 md:h-11 border-slate-200 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition-all duration-300 bg-white/90 backdrop-blur-sm text-xs sm:text-sm md:text-base shadow-sm hover:shadow-md">
+                <SelectTrigger
+                  className="h-9 sm:h-10 md:h-11 border-slate-200 focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition-all duration-300 bg-white/90 backdrop-blur-sm text-xs sm:text-sm md:text-base shadow-sm hover:shadow-md"
+                  aria-label="농장 선택"
+                >
                   <div className="flex items-center space-x-2 sm:space-x-3">
                     <div className="p-1 bg-gradient-to-br from-indigo-100 to-purple-100 rounded-md">
                       <Icon className="h-3 w-3 sm:h-4 sm:w-4 text-indigo-600 flex-shrink-0" />

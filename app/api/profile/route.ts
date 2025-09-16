@@ -155,11 +155,7 @@ export async function PATCH(request: NextRequest) {
         success: true,
         message: "프로필 정보가 성공적으로 저장되었습니다.",
       },
-      {
-        headers: {
-          "Cache-Control": "no-store",
-        },
-      }
+      { status: 201 }
     );
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);

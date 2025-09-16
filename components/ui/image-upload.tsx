@@ -248,6 +248,7 @@ export function ImageUpload({
             onClick={() => handleFileSelectWithCamera()}
             disabled={loading}
             className="absolute bottom-3 right-3 bg-white shadow-lg border-2 border-blue-200 hover:border-blue-300 rounded-full w-10 h-10 p-0"
+            aria-label="이미지 업로드"
           >
             <Camera className="h-4 w-4 text-blue-600" />
           </Button>
@@ -260,6 +261,7 @@ export function ImageUpload({
               onClick={handleDelete}
               disabled={loading}
               className="absolute top-3 right-3 bg-white shadow-lg border-2 border-red-200 hover:border-red-300 rounded-full w-10 h-10 p-0"
+              aria-label="이미지 삭제"
             >
               <Trash2 className="h-4 w-4 text-red-600" />
             </Button>
@@ -273,6 +275,7 @@ export function ImageUpload({
               onClick={handleAvatarChange}
               disabled={loading}
               className="absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2 bg-white shadow-lg border-2 border-green-200 hover:border-green-300 rounded-full w-10 h-10 p-0"
+              aria-label="아바타 변경"
             >
               <RefreshCw className="h-4 w-4 text-green-600" />
             </Button>

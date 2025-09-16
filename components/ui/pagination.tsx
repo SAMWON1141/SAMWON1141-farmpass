@@ -69,6 +69,7 @@ function Pagination({
             size="icon"
             onClick={() => onPageChange(1)}
             disabled={!canGoToPreviousPage}
+            aria-label="첫 페이지로 이동"
           >
             <ChevronsLeft className="h-4 w-4" />
           </Button>
@@ -78,6 +79,7 @@ function Pagination({
           size="icon"
           onClick={() => onPageChange(currentPage - 1)}
           disabled={!canGoToPreviousPage}
+          aria-label="이전 페이지로 이동"
         >
           <ChevronLeft className="h-4 w-4" />
         </Button>
@@ -88,6 +90,7 @@ function Pagination({
             variant={pageNumber === currentPage ? "default" : "outline"}
             size="icon"
             onClick={() => onPageChange(pageNumber)}
+            aria-label={`${pageNumber}페이지로 이동`}
           >
             {pageNumber}
           </Button>
@@ -98,6 +101,7 @@ function Pagination({
           size="icon"
           onClick={() => onPageChange(currentPage + 1)}
           disabled={!canGoToNextPage}
+          aria-label="다음 페이지로 이동"
         >
           <ChevronRight className="h-4 w-4" />
         </Button>
@@ -107,6 +111,7 @@ function Pagination({
             size="icon"
             onClick={() => onPageChange(totalPages)}
             disabled={!canGoToNextPage}
+            aria-label="마지막 페이지로 이동"
           >
             <ChevronsRight className="h-4 w-4" />
           </Button>

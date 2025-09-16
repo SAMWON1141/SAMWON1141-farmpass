@@ -1,7 +1,7 @@
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // QueryClient 설정
 function makeQueryClient() {
@@ -58,39 +58,10 @@ function makeQueryClient() {
   return queryClient;
 }
 
-// 개발 환경에서만 DevTools 컴포넌트 생성
-function DevTools() {
-  const [DevToolsComponent, setDevToolsComponent] =
-    useState<React.ComponentType<any> | null>(null);
-
-  useEffect(() => {
-    // 개발 환경에서만 DevTools 로드
-    if (process.env.NODE_ENV === "development") {
-      import("@tanstack/react-query-devtools")
-        .then((module) => {
-          setDevToolsComponent(() => module.ReactQueryDevtools);
-        })
-        .catch(() => {
-          // DevTools 로드 실패 시 무시
-          console.warn("React Query DevTools 로드 실패");
-        });
-    }
-  }, []);
-
-  if (!DevToolsComponent) {
-    return null;
-  }
-
-  return <DevToolsComponent initialIsOpen={false} />;
-}
-
 export function QueryProvider({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => makeQueryClient());
 
   return (
-    <QueryClientProvider client={queryClient}>
-      {children}
-      <DevTools />
-    </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 }

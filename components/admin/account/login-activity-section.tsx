@@ -127,7 +127,7 @@ export function LoginActivitySection({ profile }: LoginActivitySectionProps) {
               key={activity.id}
               className={`flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 rounded-lg ${
                 activity.isCurrent
-                  ? "bg-primary/10 border border-primary/20"
+                  ? "bg-primary/20 border border-primary/40"
                   : "bg-muted"
               }`}
             >
@@ -137,7 +137,7 @@ export function LoginActivitySection({ profile }: LoginActivitySectionProps) {
                   <div className="font-medium text-sm sm:text-base break-words">
                     {activity.device}
                     {activity.isCurrent && (
-                      <span className="ml-2 text-xs sm:text-sm bg-primary/20 text-primary px-2 py-1 rounded-full whitespace-nowrap">
+                      <span className="ml-2 text-xs sm:text-sm bg-primary text-primary-foreground px-2 py-1 rounded-full whitespace-nowrap">
                         {LABELS.CURRENT_SESSION}
                       </span>
                     )}

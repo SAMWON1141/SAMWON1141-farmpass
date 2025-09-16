@@ -1,15 +1,67 @@
 import { ChartCard } from "@/components/admin/management/dashboard/ChartCard";
-import { VisitorTrendChart } from "@/components/charts/visitor-trend-chart";
-import { VisitorPurposeChart } from "@/components/charts/visitor-purpose-chart";
-import { VisitorTimeChart } from "@/components/charts/visitor-time-chart";
-import { VisitorRegionChart } from "@/components/charts/visitor-region-chart";
-import { WeekdayVisitorChart } from "@/components/charts/weekday-visitor-chart";
+import dynamic from "next/dynamic";
 import { TrendingUp, Target, Clock, MapPin, Calendar } from "lucide-react";
 import { LABELS } from "@/lib/constants/dashboard";
 import type {
   ChartDataPoint,
   DistributionData,
 } from "@/lib/utils/data/common-stats";
+
+// 차트 컴포넌트들을 동적 import로 최적화
+const VisitorTrendChart = dynamic(
+  () =>
+    import("@/components/charts/visitor-trend-chart").then((mod) => ({
+      default: mod.VisitorTrendChart,
+    })),
+  {
+    ssr: false,
+    loading: () => <div className="h-64 bg-muted animate-pulse rounded" />,
+  }
+);
+
+const VisitorPurposeChart = dynamic(
+  () =>
+    import("@/components/charts/visitor-purpose-chart").then((mod) => ({
+      default: mod.VisitorPurposeChart,
+    })),
+  {
+    ssr: false,
+    loading: () => <div className="h-64 bg-muted animate-pulse rounded" />,
+  }
+);
+
+const VisitorTimeChart = dynamic(
+  () =>
+    import("@/components/charts/visitor-time-chart").then((mod) => ({
+      default: mod.VisitorTimeChart,
+    })),
+  {
+    ssr: false,
+    loading: () => <div className="h-64 bg-muted animate-pulse rounded" />,
+  }
+);
+
+const VisitorRegionChart = dynamic(
+  () =>
+    import("@/components/charts/visitor-region-chart").then((mod) => ({
+      default: mod.VisitorRegionChart,
+    })),
+  {
+    ssr: false,
+    loading: () => <div className="h-64 bg-muted animate-pulse rounded" />,
+  }
+);
+
+const WeekdayVisitorChart = dynamic(
+  () =>
+    import("@/components/charts/weekday-visitor-chart").then((mod) => ({
+      default: mod.WeekdayVisitorChart,
+    })),
+  {
+    ssr: false,
+    loading: () => <div className="h-64 bg-muted animate-pulse rounded" />,
+  }
+);
 
 interface ChartGridProps {
   visitorTrend: any[]; // 이건 기존 형식 유지 (useFarmVisitors에서 제공)

@@ -45,7 +45,10 @@ export function ExportFilters({
               {LABELS.EXPORT_FILTERS_FARM_SELECT}
             </Label>
             <Select value={farmFilter} onValueChange={onFarmFilterChange}>
-              <SelectTrigger className="h-8 sm:h-9 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100">
+              <SelectTrigger
+                className="h-8 sm:h-9 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
+                aria-label="농장 필터 선택"
+              >
                 <SelectValue
                   placeholder={
                     PLACEHOLDERS.DATE_RANGE_SELECTOR_FARM_PLACEHOLDER

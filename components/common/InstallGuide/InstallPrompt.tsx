@@ -191,12 +191,12 @@ export function InstallPrompt({
                     {getPlatformIcon()}
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-sm">
+                    <div className="font-semibold text-sm">
                       {LABELS.INSTALL_PROMPT_ADD_TO_HOME.replace(
                         "{action}",
                         getInstallText()
                       )}
-                    </h3>
+                    </div>
                     <p className="text-xs opacity-90 mt-1">{getGuideText()}</p>
                   </div>
                 </div>
@@ -207,6 +207,7 @@ export function InstallPrompt({
                     size="sm"
                     onClick={handleDismiss}
                     className="text-white hover:bg-white hover:bg-opacity-20 h-8 w-8 p-0"
+                    aria-label="설치 프롬프트 닫기"
                   >
                     <X className="w-4 h-4" />
                   </Button>
@@ -216,6 +217,7 @@ export function InstallPrompt({
                       size="sm"
                       disabled={isInstalling}
                       className="bg-white text-blue-600 hover:bg-gray-100 font-medium h-8 px-3"
+                      aria-label={isInstalling ? "설치 중..." : "앱 설치하기"}
                     >
                       <Download className="w-4 h-4 mr-1" />
                       {isInstalling

@@ -87,9 +87,9 @@ function MobileVisitorCard({
               <div className="flex items-center space-x-1 sm:space-x-2 mb-1">
                 <Tooltip delayDuration={300}>
                   <TooltipTrigger asChild>
-                    <h4 className="font-semibold text-gray-900 dark:text-slate-100 truncate text-base sm:text-lg max-w-[120px] sm:max-w-none cursor-help touch-manipulation">
+                    <div className="font-semibold text-gray-900 dark:text-slate-100 truncate text-base sm:text-lg max-w-[120px] sm:max-w-none cursor-help touch-manipulation">
                       {visitor.visitor_name}
-                    </h4>
+                    </div>
                   </TooltipTrigger>
                   <TooltipContent
                     side="bottom"

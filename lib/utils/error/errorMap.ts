@@ -122,10 +122,7 @@ export const ERROR_MAP: Record<string, ErrorInfo> = {
   // ===========================================
   // Turnstile 관련 에러
   // ===========================================
-  TURNSTILE_SYSTEM_ERROR: {
-    message: "Turnstile 시스템 오류가 발생했습니다.",
-    status: 500,
-  },
+
   TURNSTILE_VERIFICATION_FAILED: {
     message: (params: Record<string, any>) => {
       const errorCodes = params.errorCodes || [];

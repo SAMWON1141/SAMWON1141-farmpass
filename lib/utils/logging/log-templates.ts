@@ -141,8 +141,6 @@ export const LOG_MESSAGES = {
     `Turnstile 검증 실패: ${
       errorCodes.length > 0 ? errorCodes.join(", ") : "알 수 없는 오류"
     }`,
-  TURNSTILE_SYSTEM_ERROR: (errorMessage: string) =>
-    `Turnstile 시스템 오류: ${errorMessage}`,
   PASSWORD_RESET: (email: string) => `비밀번호 재설정: ${email}`,
   WITHDRAW_SUCCESS: (email: string) => `계정 탈퇴: ${email}`,
   WITHDRAW_FAILED: (email: string, errorMessage: string) =>

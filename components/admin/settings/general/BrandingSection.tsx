@@ -32,8 +32,7 @@ export function BrandingSection({
     dbField: "logo",
     refetchSettings: true, // settings context 즉시 갱신
     onUpdate: (data) => {
-      onSettingChange("logo", data.logo);
-      // 프리뷰 업데이트
+      // 프리뷰 업데이트만 수행 (서버에서 이미 갱신됨)
       if (data.logo) {
         setLogoPreview(`${data.logo}?t=${Date.now()}`);
       } else {
@@ -50,8 +49,7 @@ export function BrandingSection({
     dbField: "favicon",
     refetchSettings: true, // settings context 즉시 갱신
     onUpdate: (data) => {
-      onSettingChange("favicon", data.favicon);
-      // 프리뷰 업데이트 (강력한 캐시 버스터 적용)
+      // 프리뷰 업데이트만 수행 (서버에서 이미 갱신됨)
       if (data.favicon) {
         setFaviconPreview(
           `${data.favicon}?t=${Date.now()}&v=${Date.now()}&cb=${Math.random()}`
@@ -104,7 +102,7 @@ export function BrandingSection({
           {/* 로고 */}
           <div className="relative">
             <div className="border-2 border-dashed border-blue-200 bg-blue-50/50 rounded-lg p-4 sm:p-6 space-y-3 sm:space-y-4">
-              <div className="flex items-center gap-2 text-blue-700">
+              <div className="flex items-center gap-2 text-blue-700 dark:text-blue-200">
                 <Monitor className="h-5 w-5" />
                 <span className="font-medium text-sm sm:text-base">
                   {LABELS.SITE_LOGO}
@@ -122,7 +120,7 @@ export function BrandingSection({
                   hideGuidelines={false}
                 />
               </div>
-              <div className="text-sm sm:text-base text-blue-600/80 space-y-1 text-center">
+              <div className="text-sm sm:text-base text-blue-700 dark:text-blue-200 space-y-1 text-center">
                 <p>{LABELS.SITE_LOGO_DESCRIPTION}</p>
               </div>
             </div>
@@ -131,7 +129,7 @@ export function BrandingSection({
           {/* 파비콘 */}
           <div className="relative">
             <div className="border-2 border-dashed border-orange-200 bg-orange-50/50 rounded-lg p-4 sm:p-6 space-y-3 sm:space-y-4">
-              <div className="flex items-center gap-2 text-orange-700">
+              <div className="flex items-center gap-2 text-orange-700 dark:text-orange-200">
                 <Bookmark className="h-5 w-5" />
                 <span className="font-medium text-sm sm:text-base">
                   {LABELS.FAVICON}
@@ -149,7 +147,7 @@ export function BrandingSection({
                   hideGuidelines={false}
                 />
               </div>
-              <div className="text-sm sm:text-base text-orange-600/80 space-y-1 text-center">
+              <div className="text-sm sm:text-base text-orange-700 dark:text-orange-200 space-y-1 text-center">
                 <p>{LABELS.FAVICON_DESCRIPTION}</p>
               </div>
             </div>
@@ -171,7 +169,7 @@ export function BrandingSection({
             disabled={loading}
             placeholder={PLACEHOLDERS.SITE_NAME}
           />
-          <p className="text-sm sm:text-base text-muted-foreground">
+          <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300">
             {LABELS.SITE_NAME_DESCRIPTION}
           </p>
         </div>
@@ -192,7 +190,7 @@ export function BrandingSection({
             placeholder={PLACEHOLDERS.SITE_DESCRIPTION}
             rows={3}
           />
-          <p className="text-sm sm:text-base text-muted-foreground">
+          <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300">
             {LABELS.SITE_DESCRIPTION_HELP}
           </p>
         </div>

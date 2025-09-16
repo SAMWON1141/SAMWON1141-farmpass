@@ -1,24 +1,51 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React from "react";
+import dynamic from "next/dynamic";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PageHeader } from "@/components/layout";
 import { WebPushSubscription } from "@/components/admin/notifications/WebPushSubscription";
 import { useNotificationSettingsQuery } from "@/lib/hooks/query/use-notification-settings-query";
 import { ErrorBoundary } from "@/components/error/error-boundary";
+import { CardSkeleton } from "@/components/ui/skeleton";
 import { ERROR_CONFIGS } from "@/lib/constants/error";
-import {
-  NotificationMethodsCard,
-  NotificationTypesCard,
-  NotificationSettingsActions,
-  SubscriptionGuideCard,
-} from "@/components/admin/notifications";
 import { useCommonToast } from "@/lib/utils/notification/toast-messages";
-import type { UserNotificationSetting } from "@/lib/types/common";
 import { FormSkeleton } from "@/components/ui/skeleton";
 import { PAGE_HEADER } from "@/lib/constants/notifications";
 import { Bell } from "lucide-react";
 import { useNotificationStore } from "@/store/use-notification-store";
+import type { UserNotificationSetting } from "@/lib/types/common";
+
+// 동적 임포트로 조건부 컴포넌트들 최적화
+const SubscriptionGuideCard = dynamic(
+  () => import("@/components/admin/notifications/SubscriptionGuideCard"),
+  { loading: () => <CardSkeleton />, ssr: false }
+);
+
+const NotificationMethodsCard = dynamic(
+  () =>
+    import("@/components/admin/notifications/NotificationMethodsCard").then(
+      (mod) => ({ default: mod.NotificationMethodsCard })
+    ),
+  { loading: () => <CardSkeleton />, ssr: false }
+);
+
+const NotificationTypesCard = dynamic(
+  () =>
+    import("@/components/admin/notifications/NotificationTypesCard").then(
+      (mod) => ({ default: mod.NotificationTypesCard })
+    ),
+  { loading: () => <CardSkeleton />, ssr: false }
+);
+
+const NotificationSettingsActions = dynamic(
+  () =>
+    import("@/components/admin/notifications/NotificationSettingsActions").then(
+      (mod) => ({ default: mod.NotificationSettingsActions })
+    ),
+  { loading: () => <CardSkeleton />, ssr: false }
+);
 
 export default function NotificationsPage() {
   // 공통 스토어에서 isSubscribed 상태 사용
@@ -44,22 +71,25 @@ export default function NotificationsPage() {
     }
   }, [settings]);
 
-  // 설정 변경 핸들러
-  const handleSettingChange = <K extends keyof UserNotificationSetting>(
-    key: K,
-    value: UserNotificationSetting[K]
-  ) => {
-    if (!localSettings) return;
+  // 설정 변경 핸들러 - useCallback으로 메모이제이션
+  const handleSettingChange = useCallback(
+    <K extends keyof UserNotificationSetting>(
+      key: K,
+      value: UserNotificationSetting[K]
+    ) => {
+      if (!localSettings) return;
 
-    // 로컬 상태 즉시 업데이트
-    setLocalSettings((prev) => (prev ? { ...prev, [key]: value } : prev));
-    setUnsavedChanges(true);
-  };
+      // 로컬 상태 즉시 업데이트
+      setLocalSettings((prev) => (prev ? { ...prev, [key]: value } : prev));
+      setUnsavedChanges(true);
+    },
+    [localSettings]
+  );
 
-  // 저장 완료 후 상태 초기화
-  const handleSaveComplete = () => {
+  // 저장 완료 후 상태 초기화 - useCallback으로 메모이제이션
+  const handleSaveComplete = useCallback(() => {
     setUnsavedChanges(false);
-  };
+  }, []);
 
   // 알림 설정 에러 처리
   useEffect(() => {
@@ -69,6 +99,26 @@ export default function NotificationsPage() {
   }, [settingsError, showError]);
 
   const isLoading = settingsLoading;
+
+  // 상태 관리 최적화 - useMemo로 설정 객체 메모이제이션
+  const notificationProps = useMemo(
+    () => ({
+      settings: localSettings,
+      onSettingChange: handleSettingChange,
+    }),
+    [localSettings, handleSettingChange]
+  );
+
+  // 애니메이션 최적화 - 조건부 적용
+  const shouldAnimate = !isLoading && settings;
+  const animationProps = useMemo(
+    () => ({
+      initial: { opacity: 0, y: 20 },
+      animate: { opacity: 1, y: 0 },
+      transition: { duration: 0.2 }, // 애니메이션 시간 단축
+    }),
+    []
+  );
 
   if (isLoading) {
     return (
@@ -96,15 +146,14 @@ export default function NotificationsPage() {
         />
 
         <div className="space-y-4 md:space-y-6">
-          {/* 메인 웹푸시 설정 */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            layout
-          >
+          {/* 메인 웹푸시 설정 - 애니메이션 최적화 */}
+          {shouldAnimate ? (
+            <motion.div {...animationProps} layout>
+              <WebPushSubscription />
+            </motion.div>
+          ) : (
             <WebPushSubscription />
-          </motion.div>
+          )}
 
           <AnimatePresence mode="wait">
             {!isSubscribed && (
@@ -113,7 +162,7 @@ export default function NotificationsPage() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.2 }} // 애니메이션 시간 단축
               >
                 <SubscriptionGuideCard />
               </motion.div>
@@ -121,31 +170,29 @@ export default function NotificationsPage() {
 
             {isSubscribed && (
               <>
-                <motion.div
-                  key="methods"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <NotificationMethodsCard
-                    settings={localSettings}
-                    onSettingChange={handleSettingChange}
-                  />
-                </motion.div>
+                {shouldAnimate ? (
+                  <motion.div
+                    key="methods"
+                    {...animationProps}
+                    exit={{ opacity: 0, y: -20 }}
+                  >
+                    <NotificationMethodsCard {...notificationProps} />
+                  </motion.div>
+                ) : (
+                  <NotificationMethodsCard {...notificationProps} />
+                )}
 
-                <motion.div
-                  key="types"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <NotificationTypesCard
-                    settings={localSettings}
-                    onSettingChange={handleSettingChange}
-                  />
-                </motion.div>
+                {shouldAnimate ? (
+                  <motion.div
+                    key="types"
+                    {...animationProps}
+                    exit={{ opacity: 0, y: -20 }}
+                  >
+                    <NotificationTypesCard {...notificationProps} />
+                  </motion.div>
+                ) : (
+                  <NotificationTypesCard {...notificationProps} />
+                )}
               </>
             )}
           </AnimatePresence>

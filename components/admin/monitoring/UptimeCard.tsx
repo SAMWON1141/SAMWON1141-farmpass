@@ -196,9 +196,9 @@ export function UptimeCard({
                   </svg>
                 </div>
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-2 w-full">
-                  <h4 className="font-medium break-words w-full text-base sm:text-lg">
+                  <div className="font-medium break-words w-full text-base sm:text-lg">
                     {monitor.friendly_name}
-                  </h4>
+                  </div>
                   <Badge
                     variant={isHealthy ? "default" : "destructive"}
                     className="shrink-0 mt-1 sm:mt-0"

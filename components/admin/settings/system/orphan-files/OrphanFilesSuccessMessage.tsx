@@ -24,7 +24,7 @@ export function OrphanFilesSuccessMessage({
             )}
           </p>
         </div>
-        <p className="text-sm sm:text-base text-green-600 mt-1">
+        <p className="text-sm sm:text-base text-green-700 dark:text-green-200 mt-1">
           {LABELS.ORPHAN_FILES_SUCCESS_DESC}
         </p>
       </div>
@@ -44,7 +44,7 @@ export function OrphanFilesSuccessMessage({
             {LABELS.ORPHAN_FILES_ALL_CLEANED_TITLE}
           </p>
         </div>
-        <p className="text-sm sm:text-base text-green-600 mt-1">
+        <p className="text-sm sm:text-base text-green-700 dark:text-green-200 mt-1">
           {LABELS.ORPHAN_FILES_ALL_CLEANED_DESC}
         </p>
       </div>

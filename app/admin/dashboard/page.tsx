@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "@/components/providers/auth-provider";
-import { useEffect, useState, useMemo, useCallback } from "react";
+import { useEffect, useState, useMemo, useCallback, memo } from "react";
 import { useRouter } from "next/navigation";
 import useBlockNavigation from "@/hooks/ui/use-before-unload";
 import { PageHeader } from "@/components/layout";
@@ -26,6 +26,11 @@ import { useProfileQuery } from "@/lib/hooks/query/use-profile-query";
 import { useUserConsentsQuery } from "@/lib/hooks/query/use-user-consents-query";
 import { isProfileComplete } from "@/lib/utils/auth/profile-utils";
 import { ConfirmSheet } from "@/components/ui/confirm-sheet";
+
+// 메모이제이션된 컴포넌트들
+const MemoizedStatsGrid = memo(StatsGrid);
+const MemoizedChartGrid = memo(ChartGrid);
+const MemoizedFarmSelector = memo(FarmSelector);
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -129,7 +134,7 @@ export default function DashboardPage() {
       profileLoading ||
       consentLoading ||
       (farmsLoading && availableFarms.length === 0) ||
-      adminLoading
+      (adminLoading && !adminStats) // 데이터가 없을 때만 로딩 표시
     );
   }, [
     userLoading,
@@ -138,6 +143,7 @@ export default function DashboardPage() {
     farmsLoading,
     availableFarms.length,
     adminLoading,
+    adminStats,
   ]);
 
   // 데이터 재페칭 함수
@@ -241,7 +247,7 @@ export default function DashboardPage() {
 
               {/* 농장 선택기 - 농장이 있을 때만 렌더링 */}
               {availableFarms && availableFarms.length > 0 && (
-                <FarmSelector
+                <MemoizedFarmSelector
                   selectedFarm={selectedFarm}
                   onFarmChange={handleFarmSelect}
                   availableFarms={availableFarms}
@@ -250,7 +256,7 @@ export default function DashboardPage() {
               )}
             </div>
             {/* 기존 StatsGrid 디자인 유지 */}
-            <StatsGrid
+            <MemoizedStatsGrid
               stats={
                 adminStats?.dashboardStats || {
                   totalVisitors: 0,
@@ -274,7 +280,7 @@ export default function DashboardPage() {
               <TrendingUp className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
               <span>{LABELS.DETAILED_ANALYSIS}</span>
             </div>
-            <ChartGrid
+            <MemoizedChartGrid
               visitorTrend={adminStats?.visitorTrend || []}
               purposeStats={adminStats?.purposeStats || []}
               timeStats={adminStats?.timeStats || []}

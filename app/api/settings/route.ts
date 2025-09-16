@@ -69,18 +69,12 @@ export async function GET(request: NextRequest) {
       );
 
       return NextResponse.json(newSettings, {
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
+        status: 200,
       });
     }
 
     return NextResponse.json(settings, {
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "no-store",
-      },
+      status: 200,
     });
   } catch (error: any) {
     const result = getErrorResultFromRawError(error, {
@@ -90,10 +84,6 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(errorResponse, {
       status: result.status,
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "no-store",
-      },
     });
   }
 }
@@ -196,12 +186,7 @@ export async function PATCH(request: NextRequest) {
         message,
         changedFields: changedFields.length > 0 ? changedFields : undefined,
       },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "no-store",
-        },
-      }
+      { status: 201 }
     );
   } catch (error) {
     // 에러 로그 생성
@@ -225,10 +210,6 @@ export async function PATCH(request: NextRequest) {
     const errorResponse = makeErrorResponseFromResult(result);
     return NextResponse.json(errorResponse, {
       status: result.status,
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "no-store",
-      },
     });
   }
 }

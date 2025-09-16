@@ -36,7 +36,7 @@ export function LoggingRetentionSelect({
         onValueChange={(val) => onChange(parseInt(val))}
         disabled={isLoading}
       >
-        <SelectTrigger id="logging-retention">
+        <SelectTrigger id="logging-retention" aria-label="로그 보존 기간 선택">
           <SelectValue placeholder={PLACEHOLDERS.LOGGING_RETENTION} />
         </SelectTrigger>
         <SelectContent>
