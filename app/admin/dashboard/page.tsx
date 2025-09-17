@@ -37,8 +37,12 @@ export default function DashboardPage() {
   const { userId, isAdmin, isAuthenticated, isUnauthenticated, isLoading } =
     useAuth();
   const { data: profile, isLoading: profileLoading } = useProfileQuery(userId);
-  const { data: consentData, isLoading: consentLoading } =
-    useUserConsentsQuery(isAuthenticated);
+  const {
+    data: consentData,
+    isLoading: consentLoading,
+    isFetching: consentFetching,
+    isFetched: consentFetched,
+  } = useUserConsentsQuery(isAuthenticated);
   const { farms: availableFarms, isLoading: farmsLoading } = useFarmsQuery();
   const userLoading = isLoading;
 
@@ -71,22 +75,25 @@ export default function DashboardPage() {
       return;
     }
 
-    // 로딩 중이면 대기
-    if (profileLoading || consentLoading) {
+    // 로딩/리패칭 중이면 대기 (리다이렉트 금지)
+    if (
+      profileLoading ||
+      consentLoading ||
+      !consentFetched ||
+      consentFetching
+    ) {
       return;
     }
 
-    // 프로필 완성도 및 약관 동의 상태 체크
-    if (!isProfileComplete(profile) || !consentData?.hasAllRequiredConsents) {
-      // 약관 동의 쿼리를 다시 실행하여 최신 상태 확인
-      if (consentData && !consentData.hasAllRequiredConsents) {
-        // 약간의 지연 후 다시 체크 (캐시 업데이트 대기)
-        setTimeout(() => {
-          router.replace("/profile-setup");
-        }, 100);
-        return;
-      }
-      router.replace("/profile-setup");
+    // 명시적 false일 때만 리다이렉트 (undefined/null은 무시)
+    const needsProfileSetup =
+      isProfileComplete(profile) === false ||
+      consentData?.hasAllRequiredConsents === false;
+
+    if (needsProfileSetup) {
+      setTimeout(() => {
+        router.replace("/profile-setup");
+      }, 100);
       return;
     }
   }, [
@@ -95,6 +102,8 @@ export default function DashboardPage() {
     consentData,
     profileLoading,
     consentLoading,
+    consentFetched,
+    consentFetching,
     router,
   ]);
 

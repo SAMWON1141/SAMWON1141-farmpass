@@ -66,14 +66,17 @@ export function useUpdateUserConsentsMutation() {
       return { consents: response.consents, message: response.message };
     },
     onSuccess: () => {
-      // 약관 동의 쿼리 무효화
+      queryClient.setQueryData(userConsentsKeys.check(), (prev: any) => ({
+        ...(prev ?? {}),
+        success: true,
+        hasAllRequiredConsents: true,
+        missingConsents: [],
+        userConsents: prev?.userConsents ?? [],
+      }));
+
       queryClient.invalidateQueries({
         queryKey: userConsentsKeys.check(),
-      });
-
-      // 즉시 새로운 데이터를 가져오도록 설정
-      queryClient.refetchQueries({
-        queryKey: userConsentsKeys.check(),
+        refetchType: "active",
       });
     },
   });
