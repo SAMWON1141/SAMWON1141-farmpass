@@ -16,7 +16,10 @@ export interface Profile {
 export const isProfileComplete = (
   profile: Profile | null | undefined
 ): boolean => {
-  if (!profile) return false;
+  // profile이 undefined인 경우는 아직 로딩 중이므로 true 반환 (리다이렉트 방지)
+  if (profile === undefined) return true;
+  // profile이 null인 경우는 프로필이 없으므로 false 반환
+  if (profile === null) return false;
 
   return !!(
     profile.name &&
